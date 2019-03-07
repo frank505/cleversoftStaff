@@ -1,0 +1,7 @@
+{
+  "name": "CleverSoft",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
