@@ -1,12 +1,28 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
+
+<ion-content>
+    
+  <ion-slides class="slide-padding" pager="true" (ionSlideReachEnd)="ionSlideReachEnd()" >
+      <ion-slide *ngFor="let story of topStories">
+          <div class="container">
+                <!-- <button (click)="slidePrev(Slides)" class="backBtn"> 
+                        <ion-icon name="arrow-back"></ion-icon> 
+                      </button>
+           
+                      <button (click)="slideNext(Slides)" class="nextBtn"> 
+                            <ion-icon name="arrow-forward">
+                          </ion-icon> </button> -->
+
+              <ion-img src="{{story.picture}}"></ion-img>
+              <h2 class="slidetitle">
+                  <span class="block">{{story.title}}</span>
+              </h2>
+              <p class="author">By {{story.author}}, 2h ago</p>
+          </div>
+      </ion-slide>
+  </ion-slides>
+  
+ 
+
+
 </ion-content>
