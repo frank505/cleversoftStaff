@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterEvent } from '@angular/router';
- 
+import {AuthenticationService} from 'src/app/services/authentication/authentication.service';
+
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.page.html',
@@ -11,16 +12,37 @@ export class MenuPage implements OnInit {
  
   pages = [
     {
-      title: 'First Page with Tabs',
-      url: '/users/dashboard/first'
+      title: 'Home',
+      url: '/users/dashboard/home',
+      icon:'home'
+    },
+     {
+      title: 'tasks',
+      url : '/users/dashboard/tasks',
+      icon:'add-circle',
     },
     {
-      title: 'Second Page blank',
-      url: '/users/dashboard/second'
-    }
+      title:'financial report',
+      url:'/users/dashboard/financial-report',
+      icon:'cash'
+    },
+    {
+      title:'profile',
+      url:'/users/dashboard/profile',
+      icon:'people'
+    },
+     {
+       title:'reset password',
+       url:'/users/dashboard/reset-password',
+       icon:'create'
+     }
+
   ];
  
-  constructor(private router: Router) {
+
+
+
+  constructor(private router: Router,private authService:AuthenticationService) {
     this.router.events.subscribe((event: RouterEvent) => {
       if (event && event.url) {
         this.selectedPath = event.url;
@@ -29,7 +51,14 @@ export class MenuPage implements OnInit {
   }
  
   ngOnInit() {
+
  
+
+  }
+
+  logout()
+  {
+  this.authService.removeToken();
   }
  
 }

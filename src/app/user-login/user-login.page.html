@@ -1,14 +1,31 @@
 <ion-content class="bg-style"  padding>
-    <ion-img src="../../../assets/images/logo_css.png" style="margin-bottom:40px;"></ion-img>
-        <ion-item>
-            <ion-label position="floating">Email</ion-label>
-            <ion-input></ion-input>
-          </ion-item>
-          <ion-item>
-              <ion-label position="floating">Password</ion-label>
-              <ion-input></ion-input>
-            </ion-item>
-            <ion-button color="primary" (click)="NavigateToUsersDashboard()" expand="full" style="margin-top:20px;">Login &nbsp;<ion-icon name="log-in"></ion-icon></ion-button>
-    
+  <ion-img src="../../../assets/images/logo_css.png" style="margin-bottom:40px;"></ion-img>
 
+  <ion-row>
+    <ion-col size="12">
+      <div class="imgcontainer">
+        <img src="../../../assets/images/HDfingerprint.jpg" alt="Avatar" class="avatar"><br>
+      </div>
+    </ion-col>
+      </ion-row>
+
+  <form #loginForm=ngForm   (ngSubmit)="Login()">
+      <ion-item>
+          <ion-label position="floating">Email</ion-label>
+          <ion-input type="email" name="email" [(ngModel)]="form.email" required></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">Password</ion-label>
+            <ion-input type="password" name="password" [(ngModel)]="form.password" required></ion-input>
+          </ion-item>
+          <ion-button color="primary" type="submit" expand="full" style="margin-top:20px;" [disabled]="!loginForm.valid">Login 
+            &nbsp;<ion-icon name="log-in"></ion-icon></ion-button>
+        </form>
+        <ion-row>
+         <ion-col size="12" style="justify-content: center;text-align:center;margin-top:4px;">
+          <ion-text style="" color="medium" routerLink="/forgot-password" >forgot password? <b color="primary">click here</b></ion-text>
+         </ion-col>
+        
+        </ion-row>
+         
 </ion-content>

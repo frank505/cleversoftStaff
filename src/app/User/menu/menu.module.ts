@@ -11,12 +11,28 @@ const routes: Routes = [
     component: MenuPage,
     children: [
       {
-        path: 'first',
-        loadChildren: '../../User/first/first.module#FirstPageModule'
+        path:'tasks',
+        loadChildren: '../../User/tasks/tasks.module#TasksPageModule',
       },
       {
-        path: 'second',
-        loadChildren: '../../User/second/second.module#SecondPageModule'
+        path:'financial-report',
+        loadChildren:'../../User/financial-report/financial-report.module#FinancialReportPageModule'
+      },
+      {
+      path:'home',
+      loadChildren:'../../User/home/home.module#HomePageModule',
+      },
+      {
+        path:'profile',
+        loadChildren:'../../User/profile/profile.module#ProfilePageModule',
+      },
+      {
+        path:'reset-password',
+        loadChildren:'../../User/reset-password/reset-password.module#ResetPasswordPageModule'
+      },
+      {
+        path:'full-task-details',
+        loadChildren:'../../User/full-task-details/full-task-details.module#FullTaskDetailsPageModule'
       }
     ]
   }

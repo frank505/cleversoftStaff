@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons class="drawer_elem" slot="start">
+          <ion-back-button defaultHref="" (click)="MoveBack()"></ion-back-button>
+        </ion-buttons>
+    <ion-title>full-task-details</ion-title>
+  <ion-label slot="end" style="margin-right:20px;margin-top:8px;" *ngIf="notifications_loaded" (click)="SendToNotificationsModal()">
+      <ion-icon name="notifications" color="light"style="font-size:25px;" > </ion-icon>
+      <ion-badge *ngIf="notification.count!==0" style="position: absolute;
+          margin-top: -11px;
+    margin-left: -25px;" color="danger" >{{notification.count}}</ion-badge>
+     </ion-label>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+    <div *ngIf="loaded">
+        
+              <ion-item>
+            <!-- <ion-icon name="pin" slot="start"></ion-icon> -->
+            <h5><b>{{success.data.task_header}}</b></h5>
+          </ion-item>
+        
+          
+          <ion-item>
+            <ion-text style="font-size:90% !important;">{{success.data.task_content}}</ion-text><br>
+          </ion-item>
+          <ion-item>
+              <h6><b>Names Of Staffs For This Task</b></h6>
+          </ion-item>
+      
+              <ion-list >
+            <div *ngFor="let staffs of success.data.parse_options" >
+               <ion-item style="color:red;" *ngIf="staffs.name==success.data.staff_name">
+                 *<b>{{staffs.name}}(You)</b>
+               </ion-item>
+               <ion-item >*<b>{{staffs.name}}</b></ion-item>
+            </div>
+          </ion-list>
+      
+          <ion-item>
+              <span *ngIf="success.data.attached_file != NULL" >
+              <ion-button (click)="DownloadAvailableFile(success.data.attached_file)" ><ion-icon name="download"></ion-icon></ion-button><ion-text style="color:red;">Download File</ion-text>&nbsp;&nbsp;</span>
+          </ion-item>
+      </div>
+      
+      
+
+
+</ion-content>

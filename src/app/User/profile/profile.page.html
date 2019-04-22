@@ -1,0 +1,62 @@
+<ion-header color="primary">
+    <ion-toolbar>
+        <ion-buttons class="drawer_elem" slot="start">
+            <ion-menu-button></ion-menu-button>
+          </ion-buttons>
+      <ion-title color="primary">profile</ion-title>
+      <ion-label slot="end" style="margin-right:20px;margin-top:8px;" *ngIf="notifications_loaded" (click)="SendToNotificationsModal()" >
+        <ion-icon name="notifications" color="light"style="font-size:25px;" > </ion-icon>
+        <ion-badge *ngIf="notification.count!==0" style="position: absolute;
+            margin-top: -11px;
+    margin-left: -25px;" color="danger" >{{notification.count}}</ion-badge>
+       </ion-label>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content padding>
+
+  <ion-card *ngIf="loaded">
+
+    <ion-card-header>
+        <ion-card-subtitle>Profile details</ion-card-subtitle>
+        <ion-card-title>Profile</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content >
+
+          <ion-item  class="activated">
+              <ion-thumbnail slot="start" >
+                  <ion-img (click)="viewImage()" src="{{user_details.image_directory}}/{{user_details.staffs.profilephoto}}" ></ion-img>
+                  <ion-icon name="camera" style="position: absolute;top: 1px;font-size: 30px;" (click)="ChangeProfileActionSheet()" ></ion-icon>
+                </ion-thumbnail>
+            </ion-item>
+
+    <ion-item  class="activated">
+      <h2>Name: &nbsp;&nbsp;</h2>
+      <ion-label><b><b>{{user_details.staffs.name}}</b></b></ion-label>
+    </ion-item>
+  
+    <ion-item >
+      <h2>Email: &nbsp;&nbsp;</h2>
+      <ion-label> <b><b>{{user_details.staffs.email}}</b></b></ion-label>
+    </ion-item>
+  
+    <ion-item class="activated">
+      <h2>Phone number:  &nbsp;&nbsp;</h2>
+      <ion-label><b><b>{{user_details.staffs.phone_number}}</b></b></ion-label>
+    </ion-item>
+  
+    <ion-item>
+      <h2>Created At: &nbsp;&nbsp;</h2>
+      <ion-label><b><b> {{user_details.staffs.created_at}}</b></b> </ion-label>
+    </ion-item>
+  
+    <ion-item>
+        <h2>Last Login: &nbsp;&nbsp;</h2>
+        <ion-label> <b><b>{{user_details.staffs.last_Login}}</b></b> </ion-label>
+      </ion-item>
+
+  </ion-card-content>
+  </ion-card>
+
+</ion-content>

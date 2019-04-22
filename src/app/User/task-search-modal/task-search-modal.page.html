@@ -1,0 +1,82 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-title>Search Task</ion-title>
+      <ion-buttons slot="end">
+          <ion-button style="color:white !important;" (click)="closeModal()">
+          CANCEL
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content padding>
+  <ion-list>
+  
+
+
+    <ion-item>
+        <!-- <ion-item>
+            <ion-label position="floating" placeholder="Enter more information here..." >enter your complaints/reason of dissaproval to staffs</ion-label>
+            <ion-textarea [(ngModel)]="Complaints"></ion-textarea>
+          </ion-item> -->
+  <!-- 
+          <ion-item> -->
+              <ion-label>DD/MM/YYYY"</ion-label>
+              <ion-datetime  [(ngModel)]="searchContent" display-format="DD/MM/YYYY"></ion-datetime>
+            <!-- </ion-item>
+  
+
+      <ion-input type="date" [(ngModel)]="searchContent"></ion-input> -->
+    </ion-item>
+  
+    <div text-center>
+        <ion-button color="primary" shape="round"   expand="full"  (click)="performSearch()" ><ion-icon name="search"></ion-icon></ion-button>
+    </div>
+  
+   </ion-list>
+
+
+
+   <div *ngIf="loaded">
+    <ion-list>
+        <ion-item >
+            <ion-text color="medium"><b>Your Tasks For Today<span style="color:indianred"> ({{taskData.day}} {{taskData.day_of_month}} of {{taskData.month}} {{taskData.year}}) </span></b></ion-text>
+             </ion-item>
+   <div *ngFor="let first_key of taskData.data" >
+
+    <div *ngFor="let second_key of first_key.users_assigned" >
+       
+      <ion-item-sliding *ngIf="second_key.id==taskData.id"  >
+        <ion-item  class="change_color"  >
+          <ion-label><b><b>{{first_key.task_header}}</b></b></ion-label>
+          
+        </ion-item>
+
+  <ion-item-options side="end" (click)="goToFullTaskDetails(first_key.id) "  >
+          <ion-item-option >View Full Details</ion-item-option>
+        </ion-item-options>
+    
+      </ion-item-sliding>
+
+      
+
+
+
+
+    </div>
+   
+    </div>
+  </ion-list>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+</ion-content>

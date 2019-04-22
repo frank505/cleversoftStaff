@@ -3,6 +3,10 @@ import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { Router } from "@angular/router";
+import { AuthenticationService } from "./services/authentication/authentication.service";
+import {SliderServiceService} from 'src/app/services/slider-service/slider-service.service';
+
 
 @Component({
   selector: 'app-root',
@@ -12,7 +16,10 @@ export class AppComponent {
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private router:Router,
+    private authService:AuthenticationService,
+    private slider:SliderServiceService
   ) {
     this.initializeApp();
   }
@@ -21,6 +28,30 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+  
+      
+      this.slider.CheckTokenSlides();
+      this.slider.setState.subscribe(state=>{
+       if(state == true){
+         this.router.navigate(["/user-login"]);
+        }else{
+          this.router.navigate(["home"]);
+      }
+      })
+
+      this.authService.checkToken();
+      this.authService.authenticationState.subscribe(state=>{
+        if(state == true){
+           this.router.navigate(["/users/dashboard/home"]);
+          }else{
+            this.router.navigate(["/user-login"]);
+        }
+        
+      })
+
+
+ 
+      
     });
   }
 }

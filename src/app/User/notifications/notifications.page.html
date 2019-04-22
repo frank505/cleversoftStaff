@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>notifications</ion-title>
+    <ion-buttons slot="end">
+      <ion-button style="color:white !important;" (click)="closeModal()">
+      CANCEL
+    </ion-button>
+  </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding *ngIf="loaded">
+
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+
+    <ion-list >
+      
+          <ion-item-sliding *ngFor="let notifications of success.data.data">
+      <ion-item  class="change_color" >
+        <div *ngIf="notifications.task_id!==0">
+            <ion-label><b><b style="color:indianred;">(New Task)</b>&nbsp;{{notifications.task_header}}</b></ion-label>
+        </div>
+        <div *ngIf="notifications.task_id===0">
+            <ion-label><b><b style="color:indianred;">(Attendance)</b>&nbsp;{{notifications.task_header}}</b></ion-label>
+        </div>
+      </ion-item>
+
+      <ion-item-options side="end">
+          <ion-item-option  *ngIf="notifications.task_id!==0" (click)="viewTask(notifications.task_id)">Task</ion-item-option>
+
+          <ion-item-option  *ngIf="notifications.task_id===0" (click)="viewAttendance(notifications.task_id)">Attendance</ion-item-option>
+
+        </ion-item-options>
+
+    </ion-item-sliding>
+
+    </ion-list>
+
+
+    <ion-infinite-scroll  (ionInfinite)="LoadMoreData($event)">
+        <ion-infinite-scroll-content
+          loadingSpinner="bubbles"
+          loadingText="Loading more data...">
+        </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+</ion-content>
+

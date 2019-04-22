@@ -1,6 +1,6 @@
 
 
-<ion-content>
+<ion-content *ngIf="state">
     
   <ion-slides class="slide-padding" pager="true" (ionSlideReachEnd)="ionSlideReachEnd()" >
       <ion-slide *ngFor="let story of topStories">

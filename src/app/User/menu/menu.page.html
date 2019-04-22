@@ -1,23 +1,24 @@
 <ion-split-pane>
   <ion-menu contentId="content">
- 
-    <ion-header>
-      <ion-toolbar color="primary">
-        <ion-title>Menu</ion-title>
-      </ion-toolbar>
-    </ion-header>
+      <ion-header>
+          <ion-toolbar color="primary">
+            <ion-title>  <ion-img src="../../../../assets/images/logo_css.png" ></ion-img></ion-title>
+          </ion-toolbar>
+        </ion-header>
  
     <ion-content>
       <ion-list>
-        <ion-menu-toggle auto-hide="false" *ngFor="let p of pages">
-          <ion-item [routerLink]="p.url" routerDirection="root" [class.active-item]="selectedPath.startsWith(p.url)">
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of pages">
+        <ion-item [routerLink]="p.url" routerDirection="root" [class.active-item]="selectedPath.startsWith(p.url)">
+              <ion-icon name="{{ p.icon }}"></ion-icon> &nbsp; &nbsp; &nbsp; &nbsp;
             <ion-label>
               {{ p.title }}
             </ion-label>
+
           </ion-item>
         </ion-menu-toggle>
  
-        <ion-item tappable routerLink="/login" routerDirection="root">
+        <ion-item tappable (click)="logout()">
           <ion-icon name="log-out" slot="start"></ion-icon>
           Logout
         </ion-item>

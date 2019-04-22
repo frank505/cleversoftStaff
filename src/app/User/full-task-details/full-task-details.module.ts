@@ -5,12 +5,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { SecondPage } from './second.page';
+import { FullTaskDetailsPage } from './full-task-details.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: SecondPage
+    component: FullTaskDetailsPage
   }
 ];
 
@@ -21,6 +21,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [SecondPage]
+  declarations: [FullTaskDetailsPage]
 })
-export class SecondPageModule {}
+export class FullTaskDetailsPageModule {}
