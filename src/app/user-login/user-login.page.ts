@@ -2,16 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { Router} from '@angular/router'; 
 import {AuthenticationService} from '../services/authentication/authentication.service';
 import { LoadingController,Platform } from '@ionic/angular';
-import { FingerprintAIO,FingerprintOptions} from '@ionic-native/fingerprint-aio/ngx';
 import { ToastService } from "../services/toast/toast.service";
 import {AlertService} from '../services/alert/alert.service';
-import { AndroidFingerprintAuth } from '@ionic-native/android-fingerprint-auth/ngx';
+const MODEL_URL = "http://localhost:8000/models";
 
 @Component({
   selector: 'app-user-login',
   templateUrl: './user-login.page.html',
   styleUrls: ['./user-login.page.scss'],
 })
+//const MODEL_URL = "http://10.0.2.2:8000/models";
 export class UserLoginPage implements OnInit {
   public form = {
     email:null,
@@ -19,14 +19,28 @@ export class UserLoginPage implements OnInit {
   }
   data_response:any;
   error:any;
+  faceapi:any;
   constructor(private router:Router,
     private authService:AuthenticationService,
     private loadingController:LoadingController,
-    private toast:ToastService,private faio:FingerprintAIO,
+    private toast:ToastService,
     private alert:AlertService,private platform:Platform,
-    private androidFingerprintAuth: AndroidFingerprintAuth) { }
+    ) 
+    {
+      this.loadFaceApiModels();
+      
+     }
 
   ngOnInit() {
+  }
+
+  async loadFaceApiModels()
+  {
+    await this.faceapi.loadSsdMobilenetv1Model(MODEL_URL)
+    // accordingly for the other models:
+    await this.faceapi.loadFaceLandmarkModel(MODEL_URL)
+    await this.faceapi.loadFaceRecognitionModel(MODEL_URL)
+    console.log(this.faceapi.nets)
   }
 
   async Login()
@@ -63,36 +77,9 @@ export class UserLoginPage implements OnInit {
 
   }
 
-
-  async checkIfFingerPrintIsAvailable()
+  faceDetection()
   {
-    this.androidFingerprintAuth.isAvailable()
-    .then((result)=> {
-      if(result.isAvailable){
-        // it is available
-  
-        this.androidFingerprintAuth.encrypt({ clientId: 'Cleversoft', username: 'franklin', password: 'franklin101' })
-          .then(result => {
-             if (result.withFingerprint) {
-                 console.log('Successfully encrypted credentials.');
-                 console.log('Encrypted credentials: ' + result.token);
-             } else if (result.withBackup) {
-               console.log('Successfully authenticated with backup password!');
-             } else console.log('Didn\'t authenticate!');
-          })
-          .catch(error => {
-             if (error === this.androidFingerprintAuth.ERRORS.FINGERPRINT_CANCELLED) {
-               console.log('Fingerprint authentication cancelled');
-             } else console.error(error)
-          });
-  
-      } else {
-        console.log("finger print not available")
-        this.alert.presentAlert("error","error","finger print auth not allowed in this phone");
-        // fingerprint auth isn't available
-      }
-    })
-    .catch(error => console.error(error));
+   
   }
 
  

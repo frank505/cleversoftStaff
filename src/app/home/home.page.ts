@@ -22,7 +22,7 @@ export class HomePage {
       {title: "Coffee the right way", author: "Ellesha Hartley", body: "", picture: "../../assets/images/paypal (2).jpg"},
       {title: "Best Hiking In Yosemite", author: "Vinnie Alexander", body: "", picture: "../../assets/images/paypal (3).jpg"},
     ]
-   this.state = slider.state;
+   this.state = this.slider.state;
 
   }
 

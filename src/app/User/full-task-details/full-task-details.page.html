@@ -3,7 +3,7 @@
       <ion-buttons class="drawer_elem" slot="start">
           <ion-back-button defaultHref="" (click)="MoveBack()"></ion-back-button>
         </ion-buttons>
-    <ion-title>full-task-details</ion-title>
+    <ion-title>full task details</ion-title>
   <ion-label slot="end" style="margin-right:20px;margin-top:8px;" *ngIf="notifications_loaded" (click)="SendToNotificationsModal()">
       <ion-icon name="notifications" color="light"style="font-size:25px;" > </ion-icon>
       <ion-badge *ngIf="notification.count!==0" style="position: absolute;
@@ -12,6 +12,7 @@
      </ion-label>
   </ion-toolbar>
 </ion-header>
+
 
 <ion-content padding>
 

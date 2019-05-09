@@ -14,22 +14,29 @@ export class HomePage implements OnInit {
   notification:any;
   notifications_loaded:boolean = false;
   constructor(private notifications:NotificationsService,
-    private modalController:ModalController) { 
-    this.getNotification();
+    private modalController:ModalController,
+    public loadingController: LoadingController
+    ) { 
+    
   }
 
   
   ngOnInit() {
+    this.getNotification();
   }
 
 
-  getNotification()
+ async getNotification()
   {
     this.notifications_loaded = false;
+    const loading = await this.loadingController.create({spinner:'bubbles' })
+    loading.present().then(()=>{
     this.notifications.getUserNotificationsAvailable().then((data)=>{
       this.notifications_loaded = true;
       this.notification = data;
+      loading.dismiss();
     })
+    });
   }
 
 

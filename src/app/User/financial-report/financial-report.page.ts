@@ -7,6 +7,7 @@ import {FinancialReportSearchModalPage} from 'src/app/User/financial-report-sear
 import {NotificationsService} from 'src/app/services/notifications/notifications.service';
 import {NotificationsPage} from 'src/app/User/notifications/notifications.page';
 
+
 @Component({
   selector: 'app-financial-report',
   templateUrl: './financial-report.page.html',

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
@@ -27,12 +26,12 @@ export class AppComponent {
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
+      // this.statusBar.backgroundColorByName("green");
+      // this.statusBar.overlaysWebView(false);
       this.splashScreen.hide();
-  
-      
       this.slider.CheckTokenSlides();
-      this.slider.setState.subscribe(state=>{
-       if(state == true){
+      this.slider.setState.subscribe(states=>{
+       if(states){
          this.router.navigate(["/user-login"]);
         }else{
           this.router.navigate(["home"]);
@@ -41,7 +40,7 @@ export class AppComponent {
 
       this.authService.checkToken();
       this.authService.authenticationState.subscribe(state=>{
-        if(state == true){
+        if(state){
            this.router.navigate(["/users/dashboard/home"]);
           }else{
             this.router.navigate(["/user-login"]);

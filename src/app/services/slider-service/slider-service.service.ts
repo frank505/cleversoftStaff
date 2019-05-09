@@ -30,14 +30,14 @@ export class SliderServiceService {
     this.state = false;
     await this.storage.get(SLIDER_TOKEN).then(async (res)=>{
     
-     if(res!==null){
-       this.setState.next(true);
-       this.state = false;
+     if(res===null){
+      // this.setState.next(true);
+      this.setState.next(false);
+      this.state = false;
      }else{
-       this.setState.next(false);
+       this.setState.next(true);
        this.state = true;
      }
-    
       
      })
   }
