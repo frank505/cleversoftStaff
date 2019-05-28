@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGaurdService } from './services/auth-gaurd/auth-gaurd.service';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', redirectTo: 'users/dashboard/home', pathMatch: 'full' },
   { path: 'home', loadChildren: './home/home.module#HomePageModule' },
   { path: 'user-login', loadChildren: './user-login/user-login.module#UserLoginPageModule' },
   {

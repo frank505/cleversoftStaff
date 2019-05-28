@@ -16,4 +16,16 @@ export class ToastService {
     });
     toast.present();
   }
+
+  async presentFadeToast(message,time)
+  {
+    const toast = await this.toastController.create({
+      message: message,
+      showCloseButton: false,
+      position: 'top',
+      animated:true,
+      duration:time
+    });
+    toast.present();
+  }
 }

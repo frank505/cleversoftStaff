@@ -14,12 +14,14 @@ export class AlertService {
       header: header,
       subHeader: subHeader,
       message: message,
-      buttons: ['OK']
-    });
+      buttons: ['OK'] 
+    })
   
     await alert.present();
   }
 
+
+  
    
 
   //end of this class

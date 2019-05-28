@@ -18,6 +18,7 @@ import {TaskSearchModalPageModule} from 'src/app/User/task-search-modal/task-sea
 import {FinancialReportSearchModalPageModule} from 'src/app/User/financial-report-search-modal/financial-report-search-modal.module';
 import {NotificationsPageModule} from 'src/app/User/notifications/notifications.module';
 import { Camera } from '@ionic-native/camera/ngx';
+import { BackgroundMode } from '@ionic-native/background-mode/ngx';
 import { File } from '@ionic-native/File/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
 import { FileTransfer } from '@ionic-native/file-transfer/ngx';
@@ -46,6 +47,7 @@ import { NotificationsService } from 'src/app/services/notifications/notificatio
     FilePath,
     FileTransfer,
     NotificationsService,
+   BackgroundMode,
       { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },    
   ],
   bootstrap: [AppComponent]
