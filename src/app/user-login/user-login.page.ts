@@ -6,9 +6,11 @@ import { ToastService } from "../services/toast/toast.service";
 import {AlertService} from '../services/alert/alert.service';
 import { Camera , CameraOptions,PictureSourceType} from '@ionic-native/camera/ngx';
 import {BackgroundMode} from '@ionic-native/background-mode/ngx';
+import {ProfileService} from 'src/app/services/profile/profile.service';
+//import * as faceapi from 'face-api.js';
 
-declare var faceapi:any;
-const MODELS_URL = "src/app/models";
+ declare var faceapi;
+
 @Component({
   selector: 'app-user-login',
   templateUrl: './user-login.page.html',
@@ -17,6 +19,9 @@ const MODELS_URL = "src/app/models";
 
 export class UserLoginPage implements OnInit {
   @ViewChild('loginImages') loginImages : ElementRef;
+  @ViewChild("firstImg") firstImg:ElementRef;
+  @ViewChild("secondImg") secondImg:ElementRef;
+
   public form = {
     email:null,
     password:null
@@ -34,25 +39,19 @@ export class UserLoginPage implements OnInit {
     private platform:Platform,
     private camera: Camera,
    public alertController: AlertController,
-  public backgroundMode:BackgroundMode
+  public backgroundMode:BackgroundMode,
+  private profile:ProfileService
     ) 
-    {   
-        
-      
-      this.loadFaceApiModels();
+    {           
+      console.log(faceapi.nets);
      }
 
   ngOnInit() {
   }
 
+
   
-
-  async loadFaceApiModels()
-  {
-    console.log(faceapi.nets)
-    this.alert.presentAlert("ready","ready",JSON.stringify(faceapi.nets));
-  }
-
+  
 
   async presentAlertConfirmForFirstLogin(token) {
     const alert = await this.alertController.create({
@@ -123,8 +122,8 @@ pictureOptions()
     destinationType:this.camera.DestinationType.DATA_URL,
     mediaType: this.camera.MediaType.PICTURE,
     encodingType: this.camera.EncodingType.JPEG,
-    targetHeight: 400,
-    targetWidth: 400,
+    targetHeight: 500,
+    targetWidth: 500,
 };
 return options;
 }
@@ -132,29 +131,6 @@ return options;
 
 
 
-// openGallery() {
-// if (this.platform.is('cordova')) {
-//   const options: CameraOptions = {
-//     quality: 100,
-//     targetHeight: 400,
-//     targetWidth: 400,
-//     destinationType: this.camera.DestinationType.DATA_URL,
-//     encodingType: this.camera.EncodingType.JPEG,
-//     mediaType: this.camera.MediaType.PICTURE,
-//     sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-//     allowEdit: true
-//   }
-
-//   this.camera.getPicture(options).then((imageData) => {
-//     let base64Image = 'data:image/jpeg;base64,' + imageData;
-//     this.userPicture = base64Image;
-//   }).catch((err) => {
-//     console.log("Error: ", err);
-//   });
-// } else {
-//   this.userPicture = 'https://upload.wikimedia.org/wikipedia/en/2/24/Lenna.png';
-// }
-// }
 
  onFirstLogin(token)
  {
@@ -172,6 +148,7 @@ return options;
       targetHeight: 500,
       targetWidth: 500,
   };  
+  //open camera to take picture
    this.camera.getPicture(options).then(async (imageData)=>{
     // this.backgroundMode.disable();
     //this.backgroundMode.setEnabled(false);
@@ -180,30 +157,47 @@ return options;
    var imageLogin = this.loginImages.nativeElement.querySelector("#login_image");
    imageLogin.src = finalData;
    //this.alert.presentAlert("image","the image content",JSON.stringify(imageLogin.src));
-   const checkImage = await faceapi
+  console.log(faceapi.nets);
+
+  const LoadingImageConnection = await this.loadingController.create({ message: 'checking if this is an image..',spinner:'crescent' })
+ LoadingImageConnection.present().then(async ()=>{
+
+  await faceapi.nets.ssdMobilenetv1.loadFromUri('http://www.techbuildz.com/models');
+  await faceapi.nets.faceLandmark68Net.loadFromUri("http://www.techbuildz.com/models");
+  await faceapi.nets.faceRecognitionNet.loadFromUri("http://www.techbuildz.com/models");
+  await faceapi.nets.mtcnn.loadFromUri("http://www.techbuildz.com/models");
+  await faceapi.nets.tinyFaceDetector.loadFromUri("http://www.techbuildz.com/models");
+     const checkImage = await faceapi
    .detectAllFaces(imageLogin)
    .withFaceLandmarks()
    .withFaceDescriptors();
-    this.alert.presentAlert("content","content",JSON.stringify(checkImage))
+   console.log(checkImage)
+   // this.alert.presentAlert("content","content",JSON.stringify(checkImage))
    //results = results.map(fd => fd.forSize(width, height))
- 
  if (!checkImage.length) {
  return this.alert.presentAlert("error","error","your face is not being picked in this image ensure its your face and not some object");
  }
  imageLogin.src="";
+ LoadingImageConnection.dismiss();
+ },error=>{
+   console.log(error)
+   this.alert.presentAlert("error","error","there seems to be a problem please check your internet connection");
+   LoadingImageConnection.dismiss();
+ })
+  
  const loading = await this.loadingController.create({ message: 'uploading face authentication image..',spinner:'bubbles' })
  loading.present().then( () => {
- this.authService.uploadAuthImage(finalData).then((res)=>{
+ this.profile.uploadAuthImage(finalData).then((res)=>{
+   console.log("error for uploading image: "+res);
    loading.dismiss();
  this.toast.presentFadeToast("face recognition image was uploaded successfully",1000);
  this.authService.setToken(token);
  },error=>{
+   console.log(error)
    loading.dismiss();
   this.alert.presentAlert("error","error","face recogintion image failed to be uploaded please try again later");
  })
  })
-
-
    })
   }
  }
@@ -213,6 +207,11 @@ return options;
   var imageLogin = this.loginImages.nativeElement.querySelector("#login_image");
   imageLogin.src = authImageUrl;
   
+    await faceapi.nets.ssdMobilenetv1.loadFromUri('http://www.techbuildz.com/models');
+    await faceapi.nets.faceLandmark68Net.loadFromUri("http://www.techbuildz.com/models");
+    await faceapi.nets.faceRecognitionNet.loadFromUri("http://www.techbuildz.com/models");
+    await faceapi.nets.mtcnn.loadFromUri("http://www.techbuildz.com/models");
+    await faceapi.nets.tinyFaceDetector.loadFromUri("http://www.techbuildz.com/models");
   const checkImage = await faceapi
   .detectAllFaces(imageLogin)
   .withFaceLandmarks()
@@ -237,13 +236,7 @@ return options;
       .withFaceDescriptor();
     
       console.log(singleResult)
-    //singleResult = singleResult.map(fd=>fd.forSize(width,height))
-     if(!singleResult.length)
-     {
-      return this.alert.presentAlert("error","error",
-      "the image is either blurry please take another picture");
-     }
-
+    
     if (singleResult) {
       const bestMatch = faceMatcher.findBestMatch(singleResult.descriptor)
       this.alert.presentAlert("success","success",JSON.stringify(bestMatch))

@@ -11,23 +11,9 @@
   <meta name="format-detection" content="telephone=no" />
   <meta name="msapplication-tap-highlight" content="no" />
   
-  <script>
-    const MODEL_URL = "models";
-    async function loadModels()
-    {
-      await faceapi.loadSsdMobilenetv1Model(MODEL_URL)
-    // accordingly for the other models:
-    await faceapi.loadTinyFaceDetectorModel(MODEL_URL)
-    await faceapi.loadMtcnnModel(MODEL_URL)
-    await faceapi.loadFaceLandmarkModel(MODEL_URL)
-    await faceapi.loadFaceLandmarkTinyModel(MODEL_URL)
-    await faceapi.loadFaceRecognitionModel(MODEL_URL)
-    await faceapi.loadFaceExpressionModel(MODEL_URL)
-    console.log(faceapi.nets)
-    }
-    
-    loadModels();
-     </script>
+ 
+
+
   <!-- <script src="http://localhost:8000/js/face-api.js"></script> -->
   <!-- <script src="http://10.0.2.2:8000/js/face-api.js"></script> -->
   <script src="assets/js/face-api.js"></script>
@@ -44,6 +30,7 @@
   
 
   <app-root></app-root>
+  
 </body>
 
 </html>

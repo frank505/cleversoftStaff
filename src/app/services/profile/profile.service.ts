@@ -8,7 +8,7 @@ import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-nati
 import {LoadingController} from '@ionic/angular';
 import { ToastService } from 'src/app/services/toast/toast.service';
 import {AlertService} from 'src/app/services/alert/alert.service';
-import { base64StringToBlob } from 'blob-util'; 
+
 
 @Injectable({
   providedIn: 'root'
@@ -51,39 +51,12 @@ export class ProfileService {
   }
 
 
- async uploadImage(imageData)
+  uploadAuthImage(base64Data):any
   {
-   
-   // this.alert.presentAlert("success","success",JSON.stringify(imageData))  
-    var urlRequest = this.url+"/staffs/profilephoto/add/"+this.token;
-    const fileTransfer: FileTransferObject = this.transfer.create();
-  
-      let options1: FileUploadOptions = {
-         fileKey: 'file',
-         fileName: 'profilephoto.jpg',
-         headers: {'Authorization': this.token}
-      
-      }
-      const loading = await this.loadingController.create({ message: 'profile photo changing..',spinner:'bubbles'});
-      loading.present().then(()=>{  
-  fileTransfer.upload(imageData, urlRequest, options1)
-   .then((data) => {
-   this.success = data;
-     this.toast.presentToastWithOptions(this.success.message);
-     this.alert.presentAlert("success","success",JSON.stringify(data))
-     // success
-     console.log(data)
-     loading.dismiss();
-   }, (err) => {
-     this.error = err;
-     // error
-     console.log("error"+JSON.stringify(err));
-     loading.dismiss();
-     this.alert.presentAlert("error","error","error"+JSON.stringify(err));
-   });
-  });
+    const form_data = new FormData();
+    form_data.append("authimage",base64Data);
+    return this.http.postData(form_data,"/staffs/upload-auth-image/"+this.token,this.token).toPromise();
   }
-
 
 
 }

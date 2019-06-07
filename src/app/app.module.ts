@@ -27,11 +27,15 @@ import { NotificationsService } from 'src/app/services/notifications/notificatio
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,
-  FormsModule,HttpClientModule,TaskSearchModalPageModule,
+  imports: [
+    BrowserModule,
+   IonicModule.forRoot(), 
+   AppRoutingModule,
+  FormsModule,
+  HttpClientModule,
+  TaskSearchModalPageModule,
   FinancialReportSearchModalPageModule,
   NotificationsPageModule,
-
   IonicStorageModule.forRoot()],
   providers: [
     StatusBar,
