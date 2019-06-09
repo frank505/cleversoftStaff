@@ -108,6 +108,12 @@ isAuthenticated()
 }
 
 
+uploadAuthImage(base64Data,token):any
+{
+  const form_data = new FormData();
+  form_data.append("authimage",base64Data);
+  return this.http.postData(form_data,"/staffs/upload-auth-image/"+token,token).toPromise();
+}
 
 
   }

@@ -6,8 +6,6 @@ import { ToastService } from "../services/toast/toast.service";
 import {AlertService} from '../services/alert/alert.service';
 import { Camera , CameraOptions,PictureSourceType} from '@ionic-native/camera/ngx';
 import {BackgroundMode} from '@ionic-native/background-mode/ngx';
-import {ProfileService} from 'src/app/services/profile/profile.service';
-//import * as faceapi from 'face-api.js';
 
  declare var faceapi;
 
@@ -40,10 +38,10 @@ export class UserLoginPage implements OnInit {
     private camera: Camera,
    public alertController: AlertController,
   public backgroundMode:BackgroundMode,
-  private profile:ProfileService
     ) 
     {           
       console.log(faceapi.nets);
+      
      }
 
   ngOnInit() {
@@ -115,15 +113,15 @@ pictureOptions()
 {
   var options: CameraOptions = {
     quality: 100,
-    sourceType: this.camera.PictureSourceType.CAMERA,
-    saveToPhotoAlbum: false,
-    correctOrientation: true,
-    allowEdit:false,
-    destinationType:this.camera.DestinationType.DATA_URL,
-    mediaType: this.camera.MediaType.PICTURE,
-    encodingType: this.camera.EncodingType.JPEG,
-    targetHeight: 500,
-    targetWidth: 500,
+      sourceType: this.camera.PictureSourceType.CAMERA,
+      saveToPhotoAlbum: false,
+      correctOrientation: true,
+      allowEdit:false,
+      destinationType:this.camera.DestinationType.DATA_URL,
+      mediaType: this.camera.MediaType.PICTURE,
+      encodingType: this.camera.EncodingType.JPEG,
+      targetHeight: 500,
+      targetWidth: 500,
 };
 return options;
 }
@@ -150,45 +148,44 @@ return options;
   };  
   //open camera to take picture
    this.camera.getPicture(options).then(async (imageData)=>{
-    // this.backgroundMode.disable();
-    //this.backgroundMode.setEnabled(false);
-    var finalData = 'data:image/jpeg;base64,' + imageData;
+     //format base64 image to jpeg
+    var finalData = 'data:image/jpg;base64,' + imageData;
    // this.alert.presentAlert("success","success",JSON.stringify(finalData))
    var imageLogin = this.loginImages.nativeElement.querySelector("#login_image");
    imageLogin.src = finalData;
    //this.alert.presentAlert("image","the image content",JSON.stringify(imageLogin.src));
   console.log(faceapi.nets);
 
-  const LoadingImageConnection = await this.loadingController.create({ message: 'checking if this is an image..',spinner:'crescent' })
- LoadingImageConnection.present().then(async ()=>{
+  const loading = await this.loadingController.create({ message: 'checking if this is an image..',spinner:'crescent' })
+ loading.present().then(async ()=>{
 
   await faceapi.nets.ssdMobilenetv1.loadFromUri('http://www.techbuildz.com/models');
   await faceapi.nets.faceLandmark68Net.loadFromUri("http://www.techbuildz.com/models");
   await faceapi.nets.faceRecognitionNet.loadFromUri("http://www.techbuildz.com/models");
   await faceapi.nets.mtcnn.loadFromUri("http://www.techbuildz.com/models");
   await faceapi.nets.tinyFaceDetector.loadFromUri("http://www.techbuildz.com/models");
+  //check if its an image
      const checkImage = await faceapi
    .detectAllFaces(imageLogin)
    .withFaceLandmarks()
    .withFaceDescriptors();
    console.log(checkImage)
-   // this.alert.presentAlert("content","content",JSON.stringify(checkImage))
-   //results = results.map(fd => fd.forSize(width, height))
+
  if (!checkImage.length) {
  return this.alert.presentAlert("error","error","your face is not being picked in this image ensure its your face and not some object");
+ loading.dismiss();
  }
  imageLogin.src="";
- LoadingImageConnection.dismiss();
+ loading.dismiss();
  },error=>{
    console.log(error)
    this.alert.presentAlert("error","error","there seems to be a problem please check your internet connection");
-   LoadingImageConnection.dismiss();
+   loading.dismiss();
  })
   
- const loading = await this.loadingController.create({ message: 'uploading face authentication image..',spinner:'bubbles' })
- loading.present().then( () => {
- this.profile.uploadAuthImage(finalData).then((res)=>{
-   console.log("error for uploading image: "+res);
+  loading.present().then( () => {
+ this.authService.uploadAuthImage(finalData,token).then((res)=>{
+   console.log("success uploading image: "+res);
    loading.dismiss();
  this.toast.presentFadeToast("face recognition image was uploaded successfully",1000);
  this.authService.setToken(token);
@@ -202,11 +199,14 @@ return options;
   }
  }
 
+
+ 
  async onSuccessiveLogin(token,authImageUrl)
  {
   var imageLogin = this.loginImages.nativeElement.querySelector("#login_image");
+  imageLogin.crossOrigin = "anonymous";
   imageLogin.src = authImageUrl;
-  
+  console.log(imageLogin)
     await faceapi.nets.ssdMobilenetv1.loadFromUri('http://www.techbuildz.com/models');
     await faceapi.nets.faceLandmark68Net.loadFromUri("http://www.techbuildz.com/models");
     await faceapi.nets.faceRecognitionNet.loadFromUri("http://www.techbuildz.com/models");
@@ -240,7 +240,7 @@ return options;
     if (singleResult) {
       const bestMatch = faceMatcher.findBestMatch(singleResult.descriptor)
       this.alert.presentAlert("success","success",JSON.stringify(bestMatch))
-     // this.authService.setToken(token);
+      this.authService.setToken(token);
     }
     });
  }

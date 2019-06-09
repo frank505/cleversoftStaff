@@ -3705,6 +3705,11 @@ invert-kv@^2.0.0:
   resolved "https://registry.yarnpkg.com/invert-kv/-/invert-kv-2.0.0.tgz#7393f5afa59ec9ff5f67a27620d11c226e3eec02"
   integrity sha512-wPVv/y/QQ/Uiirj/vh3oP+1Ww+AWehmi1g5fFWGPF6IpCBCDVrhgHRMvrLfdYcwDh3QJbGXDW4JAuzxElLSqKA==
 
+ionic-cache@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/ionic-cache/-/ionic-cache-4.0.1.tgz#1c1fc2e9c3d93e5f07d29f2f21cc4cdb90ca8006"
+  integrity sha512-X7ekRjgaRyxhrspwJSzua4I8enMv6d8y8QQExqG5X2ZMj/ICh/Z7uQfNP2xEfQ+/QgSLrMuevbHkBOnT9G622g==
+
 ionicons@4.5.8:
   version "4.5.8"
   resolved "https://registry.yarnpkg.com/ionicons/-/ionicons-4.5.8.tgz#a81177325153e7eaecb9546ee0b7955451743f8e"

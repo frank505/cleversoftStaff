@@ -51,12 +51,6 @@ export class ProfileService {
   }
 
 
-  uploadAuthImage(base64Data):any
-  {
-    const form_data = new FormData();
-    form_data.append("authimage",base64Data);
-    return this.http.postData(form_data,"/staffs/upload-auth-image/"+this.token,this.token).toPromise();
-  }
 
 
 }
