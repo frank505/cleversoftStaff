@@ -39,22 +39,6 @@ export class AuthenticationService {
 
 
 
-// GetFingerPrint()
-// {
-//   this.faio.show({
-//     clientId: 'CleversoftFingerPrint',
-//     clientSecret: 'ThisIsClientSecret', //Only necessary for Android
-//     disableBackup:true,  //Only for Android(optional)
-//     //localizedFallbackTitle: 'Use Pin', //Only for iOS
-//    // localizedReason: 'Please authenticate' //Only for iOS
-// }).then((result:any)=>{
-//    console.log(result)
-//    this.alert.presentAlert("success","success",result);
-// }).catch((result:any)=>{
-//   this.alert.presentAlert("error","error","finger print authentication couldnt work");
-// })
-
-// }
 
 Login(LoginDetails)
 {
@@ -63,7 +47,7 @@ return  this.http.postData(LoginDetails,"/staffs/login");
 
 ForgotPassword(ForgotPasswordDetails)
 {
-  return this.http.postData(ForgotPasswordDetails,"/staffs/request-password-reset");
+  return this.http.postData(ForgotPasswordDetails,"/staffs/reset-password-link");
 }
 
 returnTokenPlaceholder()

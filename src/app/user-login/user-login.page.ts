@@ -8,7 +8,7 @@ import { Camera , CameraOptions,PictureSourceType} from '@ionic-native/camera/ng
 import {BackgroundMode} from '@ionic-native/background-mode/ngx';
 
  declare var faceapi;
-
+const MODEL_URL = "http://www.techbuildz.com/models";
 @Component({
   selector: 'app-user-login',
   templateUrl: './user-login.page.html',
@@ -207,31 +207,46 @@ return options;
   imageLogin.crossOrigin = "anonymous";
   imageLogin.src = authImageUrl;
   console.log(imageLogin)
-    await faceapi.nets.ssdMobilenetv1.loadFromUri('http://www.techbuildz.com/models');
-    await faceapi.nets.faceLandmark68Net.loadFromUri("http://www.techbuildz.com/models");
-    await faceapi.nets.faceRecognitionNet.loadFromUri("http://www.techbuildz.com/models");
-    await faceapi.nets.mtcnn.loadFromUri("http://www.techbuildz.com/models");
-    await faceapi.nets.tinyFaceDetector.loadFromUri("http://www.techbuildz.com/models");
-  const checkImage = await faceapi
-  .detectAllFaces(imageLogin)
-  .withFaceLandmarks()
-  .withFaceDescriptors();
-  if (!checkImage.length) {
-    return this.alert.presentAlert("error","error",
-    "there seems to be a problem please restart the app and check your internet connection");
-    }
+    
+    await faceapi.loadSsdMobilenetv1Model(MODEL_URL)
+    // accordingly for the other models:
+    await faceapi.loadTinyFaceDetectorModel(MODEL_URL)
+    await faceapi.loadMtcnnModel(MODEL_URL)
+    await faceapi.loadFaceLandmarkModel(MODEL_URL)
+    await faceapi.loadFaceLandmarkTinyModel(MODEL_URL)
+    await faceapi.loadFaceRecognitionModel(MODEL_URL)
+    await faceapi.loadFaceExpressionModel(MODEL_URL)
+  
 
-    const faceMatcher = new faceapi.FaceMatcher(checkImage)
 
     let options = this.pictureOptions();   
     this.camera.getPicture(options).then(async (imageData)=>{
 
       var finalData = 'data:image/jpeg;base64,' + imageData;
       var imageFaceAuth = this.loginImages.nativeElement.querySelector("#image_from_server");
-      imageFaceAuth.src = finalData;
+     imageFaceAuth.src = finalData;
+
+
+     console.log(imageFaceAuth)
+
+      const checkImage = await faceapi
+      .detectAllFaces(imageFaceAuth)
+      .withFaceLandmarks()
+      .withFaceDescriptors();
+     
+      console.log(checkImage)
+
+      if (!checkImage.length) {
+        return this.alert.presentAlert("error","error",
+        "no face detected");
+        }
+    
+        const faceMatcher = new faceapi.FaceMatcher(checkImage)
+    
+        console.log(faceMatcher)
 
       const singleResult = await faceapi
-      .detectSingleFace(imageFaceAuth)
+      .detectSingleFace(imageLogin)
       .withFaceLandmarks()
       .withFaceDescriptor();
     
@@ -239,11 +254,20 @@ return options;
     
     if (singleResult) {
       const bestMatch = faceMatcher.findBestMatch(singleResult.descriptor)
-      this.alert.presentAlert("success","success",JSON.stringify(bestMatch))
-      this.authService.setToken(token);
+      console.log(bestMatch)
+      if(bestMatch.hasOwnProperty("_label")  && bestMatch._label!="unknown"){
+        this.authService.setToken(token);
+      }else{
+        this.alert.presentAlert("error","error","this face doesnt match");
+      }
+      
+    }else{
+      this.alert.presentAlert("error","error","no face is detected please try again");
     }
     });
- }
+
 
  
+}
+
 }

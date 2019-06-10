@@ -41,13 +41,14 @@ export class ForgotPasswordPage implements OnInit {
            if(this.data_response.success.success == true )
            {
              this.toast.presentToastWithOptions("a link has been sent to your mail note that this expires within 24 hours");
-           }
+           loading.dismiss();
+            }
         },
         
         error => {
           console.log(error)
           this.data_response.error = error;
-          this.toast.presentToastWithOptions(this.data_response.error.error);
+          this.toast.presentToastWithOptions("there seems to be a problem please try again later");
           loading.dismiss();
       })
     });
