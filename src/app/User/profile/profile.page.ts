@@ -1,10 +1,10 @@
-import { Component, OnInit , ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit , ChangeDetectorRef, ViewChild,ElementRef } from '@angular/core';
 import {ProfileService} from 'src/app/services/profile/profile.service';
 import {LoadingController,ModalController,ActionSheetController,Platform} from '@ionic/angular';
 import {AlertService} from 'src/app/services/alert/alert.service';
 import {NotificationsService} from 'src/app/services/notifications/notifications.service';
 import {NotificationsPage} from 'src/app/User/notifications/notifications.page';
-//import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
+import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 import { Camera , CameraOptions,PictureSourceType} from '@ionic-native/camera/ngx';
 import {AuthenticationService} from 'src/app/services/authentication/authentication.service';
 import { base64StringToBlob } from 'blob-util';
@@ -23,31 +23,41 @@ export class ProfilePage implements OnInit {
    notification:any;
    lastImage: string = null;
   token:any;
+  profileChangeResponse:any;
+  @ViewChild("imageProfile") imageProfile:ElementRef;
+
    constructor(
     private profile:ProfileService,
     private loadingController:LoadingController,
     private modalController:ModalController,
     private alert:AlertService,
     private notifications:NotificationsService,
-   // private photoViewer: PhotoViewer,
+    private photoViewer: PhotoViewer,
    public actionSheetController: ActionSheetController,
    private camera: Camera,
    private platform:Platform,
    private ref:ChangeDetectorRef,
-   private authService:AuthenticationService
+   private authService:AuthenticationService,
   ) { 
     this.token = this.authService.getToken();
     this.getNotification();
-    this.loadProfile();
+   // this.loadProfile();
   }
 
   ngOnInit() {
   }
 
+ ionViewWillEnter()
+ {
+  this.loadProfile();
+ }
+
+ 
+
   async loadProfile()
   {
     this.loaded = false;
-    const loading = await this.loadingController.create({ message: 'profile details loading..',spinner:'bubbles'});
+    const loading = await this.loadingController.create({ message: 'profile details loading..',spinner:'crescent'});
     loading.present().then(()=>{
       this.profile.loadProfile().then((data)=>{
         console.log(data)
@@ -92,7 +102,7 @@ export class ProfilePage implements OnInit {
           text: 'Remove Photo',
           icon: 'trash',
           handler: () => {
-            console.log('Share clicked');
+           this.removePhoto();
           }
         },
         {
@@ -126,8 +136,27 @@ export class ProfilePage implements OnInit {
       return new Blob([uInt8Array], { type: imageType });
   }  
 
-  
-  
+
+
+
+  async removePhoto()
+  {
+    const loading = await this.loadingController.create({ message: 'removing photo..',spinner:'crescent'});
+    loading.present().then(()=>{  
+    this.profile.removePhoto().then((data)=>{
+      console.log(data)
+      this.profileChangeResponse = data;
+          this.imageProfile.nativeElement.src= this.profileChangeResponse.new_image;
+          loading.dismiss();
+    },error=>{
+      console.log(error)
+      loading.dismiss();
+      this.alert.presentAlert("error","error","oops! there seems to be a problem please try again later"+JSON.stringify(error))
+    })
+    });
+  }
+
+
   takeAndSaveImage(sourceType: PictureSourceType)
   {
       var options: CameraOptions = {
@@ -136,9 +165,11 @@ export class ProfilePage implements OnInit {
         saveToPhotoAlbum: false,
         correctOrientation: true,
         allowEdit:false,
-        cameraDirection: 1,
         destinationType:this.camera.DestinationType.DATA_URL,
-        mediaType: this.camera.MediaType.PICTURE
+        mediaType: this.camera.MediaType.PICTURE,
+        encodingType: this.camera.EncodingType.JPEG,
+        targetHeight: 500,
+        targetWidth: 500,
 
     };
 
@@ -146,38 +177,32 @@ export class ProfilePage implements OnInit {
               // imageData is either a base64 encoded string or a file URI
        // If it's base64:
        let finalData = 'data:image/jpeg;base64,' + imageData;
-        const loading = await this.loadingController.create({ message: 'profile photo changing..',spinner:'bubbles'});
+        const loading = await this.loadingController.create({ message: 'profile photo changing..',spinner:'crescent'});
        loading.present().then(()=>{  
         this.profile.uploadImageFromFileManager(finalData).then((data)=>{
+          console.log(data)
+          this.profileChangeResponse = data;
+          this.imageProfile.nativeElement.src= this.profileChangeResponse.new_image;
            loading.dismiss();
-           this.alert.presentAlert("success","success",JSON.stringify(data));
+        
+           this.alert.presentAlert("success","success","profile picture changed successfully");
         },error=>{
           loading.dismiss();
-          this.alert.presentAlert("success","success",JSON.stringify(error));
+          console.log(error)
+          this.alert.presentAlert("success","success","profile picture change failed");
         });
       });
-         //this.profile.uploadImage(imageData);
-                 
-           // }
-            // else if(this.platform.is("android") && sourceType===this.camera.PictureSourceType.CAMERA)
-            // {
-            //   let finalData = 'data:image/jpeg;base64,' + imageData;
-            //   const loading = await this.loadingController.create({ message: 'profile photo changing..',spinner:'bubbles'});
-            //   loading.present().then(()=>{  
-            //    this.profile.uploadImageFromFileManager(finalData).then((data)=>{
-            //       loading.dismiss();
-            //       this.alert.presentAlert("success","success",JSON.stringify(data));
-            //    },error=>{
-            //      loading.dismiss();
-            //      this.alert.presentAlert("success","success",JSON.stringify(error));
-            //    });
-            //  });
-            // }
-            });
+               });
 
   }
 
-
+viewImage()
+{
+  let url = this.user_details.image_directory+this.user_details.staffs.profilephoto;
+  console.log(url)
+  this.photoViewer.show(url);
+  console.log("yet to add feature to view full screeen image")
+}
 
   
   getNotification()
@@ -207,15 +232,6 @@ modal.onDidDismiss().then((dataReturned) => {
 
 return await modal.present();
   }
-
-
-  // viewImage()
-  // {
-  //  // this.photoViewer.show("user_details.image_directory/user_details.staffs.profilephoto");
-  // }
-
-
-  
 
 
 

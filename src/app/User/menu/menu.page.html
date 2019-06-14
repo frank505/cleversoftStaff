@@ -1,15 +1,22 @@
-<ion-split-pane>
+
+
+
+<ion-split-pane >
   <ion-menu contentId="content">
-      <ion-header>
-          <ion-toolbar color="primary">
-            <ion-title>  <ion-img src="../../../../assets/images/logo_css.png" ></ion-img></ion-title>
-          </ion-toolbar>
-        </ion-header>
+ 
+    <ion-header no-border style="background-image: url('../../../assets/images/latest_img_cleversoftware.jpg');height:100px;">
+      <ion-toolbar >
+        <ion-title>  <img style="z-index:100;margin-top:10px;" src="../../../../assets/images/logo_css.png"/></ion-title>
+      </ion-toolbar>
+
+     
+
+    </ion-header>
  
     <ion-content>
       <ion-list>
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of pages">
-        <ion-item [routerLink]="p.url" routerDirection="root" [class.active-item]="selectedPath.startsWith(p.url)">
+        <ion-menu-toggle auto-hide="false" *ngFor="let p of pages">
+          <ion-item [routerLink]="p.url" routerDirection="root" [class.active-item]="selectedPath.startsWith(p.url)">
               <ion-icon name="{{ p.icon }}"></ion-icon> &nbsp; &nbsp; &nbsp; &nbsp;
             <ion-label>
               {{ p.title }}
@@ -18,7 +25,7 @@
           </ion-item>
         </ion-menu-toggle>
  
-        <ion-item tappable (click)="logout()">
+        <ion-item tappable (click)="Logout()">
           <ion-icon name="log-out" slot="start"></ion-icon>
           Logout
         </ion-item>

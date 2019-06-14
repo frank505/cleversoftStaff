@@ -1,66 +1,72 @@
- <ion-header color="primary">
-  <ion-toolbar>
-      <ion-buttons class="drawer_elem" slot="start">
-          <ion-menu-button></ion-menu-button>
-        </ion-buttons>
-      
-    <ion-title color="primary">home</ion-title>
-
-     <ion-label slot="end" style="margin-right:20px;margin-top:8px;" (click)="SendToNotificationsModal()" *ngIf="notifications_loaded" >
-      <ion-icon name="notifications" color="light"style="font-size:25px;" > </ion-icon>
-      <ion-badge *ngIf="notification.count!==0" style="position: absolute;
-         margin-top: -11px;
-    margin-left: -25px;" color="danger" >{{notification.count}}</ion-badge>
-     </ion-label>
-    
-
-
-  </ion-toolbar>
-</ion-header>
 
 <ion-content padding>
 
- 
+  <ion-header color="primary" style="background:transparent !important;z-index:100;position:absolute;" no-border>
+    <ion-toolbar >
+        <ion-buttons class="drawer_elem_none" slot="start">
+            <ion-menu-button></ion-menu-button>
+          </ion-buttons>
+      <ion-title color="primary"></ion-title>
 
+      <ion-label slot="end" style="margin-right:30px;margin-top:3px;" (click)="SendToNotificationsModal()" *ngIf="notifications_loaded" >
+        <ion-icon name="notifications" class="notifications" style="font-size:25px;color:white !important;" > </ion-icon>
+        <ion-badge *ngIf="notification.count!==0" style="position: absolute;
+           margin-top: -6px;
+      margin-left: -35px;" color="danger" >{{notification.count}}</ion-badge>
+       </ion-label>
+      
+    </ion-toolbar>
+  </ion-header>
 
-    <ion-grid >
+<div class="image-content" >
+
+<div class="overlay-shadow">
+
+</div>
+
+<img src="../../../assets/images/logo_css.png" style="margin-top:100px;margin-left:5%;color:white;z-index:100;position:absolute;" alt="" srcset="">
+
+</div>
+
+<ion-grid style="margin-top:240px;">
+
         <ion-row>
-          <ion-col col-6>
-              <!-- <ion-card > -->
+          <ion-col col-5>
+              <ion-card >
                   <ion-card-content text-center routerLink="/users/dashboard/profile" > 
                     <ion-icon name="people" color="dark" class="ion-resize"></ion-icon><br>
                          <b class="ion-item-link" style="color:dark !important;">Profile</b> 
                   </ion-card-content>
-                <!-- </ion-card> -->
+                </ion-card>
   
           </ion-col>
-          <ion-col col-6>
+          <ion-col col-5>
 
-              <!-- <ion-card routerLink="/admin/dashboard/user-profile/user-profile/add-user"> -->
+              <ion-card routerLink="/admin/dashboard/user-profile/user-profile/add-user">
                   <ion-card-content text-center routerLink="/users/dashboard/reset-password">  
                       <ion-icon name="create" color="dark" class="ion-resize"></ion-icon><br>
                            <b class="ion-item-link">reset password</b> 
                     </ion-card-content>
                   
-                <!-- </ion-card> -->
+                </ion-card>
   
 
 
           </ion-col>
         </ion-row>
         <ion-row>
-          <ion-col col-6>
-              <!-- <ion-card> -->
+          <ion-col col-5>
+              <ion-card>
   
                   <ion-card-content text-center routerLink="/users/dashboard/tasks"> 
                       <ion-icon name="add-circle" color="dark" class="ion-resize"></ion-icon><br>
                            <b class="ion-item-link">Tasks</b> 
                     </ion-card-content>
                   
-                <!-- </ion-card>                       -->
+                </ion-card>                      
           </ion-col>
-          <ion-col col-6>
-              <!-- <ion-card> -->
+          <ion-col col-5>
+              <ion-card>
     
                   <ion-card-content text-center routerLink="/users/dashboard/financial-report"> 
                       <ion-icon name="cash" color="dark" class="ion-resize"></ion-icon><br>
@@ -68,31 +74,31 @@
                     </ion-card-content>
                   
                 
-                <!-- </ion-card> -->
+                </ion-card>
   
           </ion-col>
         </ion-row>
  
 
         <ion-row>
-            <ion-col col-6>
-                <!-- <ion-card> -->
+            <ion-col col-5>
+                <ion-card>
                     <ion-card-content text-center > 
                       <ion-icon name="cog" color="dark" class="ion-resize"></ion-icon><br>
                            <b class="ion-item-link" style="color:dark !important;">Settings</b> 
                     </ion-card-content>
-                  <!-- </ion-card> -->
+                  </ion-card>
     
             </ion-col>
-            <ion-col col-6>
+            <ion-col col-5>
   
-                <!-- <ion-card (click)="GoToServicePage()"> -->
+                <ion-card (click)="GoToServicePage()">
                     <ion-card-content text-center> 
                         <ion-icon name="information-circle" color="dark" class="ion-resize"></ion-icon><br>
                              <b class="ion-item-link">About</b> 
                       </ion-card-content>
                     
-                  <!-- </ion-card> -->
+                  </ion-card>
     
                   
             </ion-col>
@@ -101,7 +107,7 @@
 
 <!--           
         <ion-row>
-            <ion-col col-6>
+            <ion-col col-5>
                 <ion-card>
                     <ion-card-content text-center > 
                       <ion-icon name="home" color="dark" class="ion-resize"></ion-icon><br>

@@ -41,7 +41,7 @@ notification:any;
   async loadTasks()
   {
       this.loaded = false;
-      const loading = await this.loadingController.create({ message: 'task loading..',spinner:'bubbles' })
+      const loading = await this.loadingController.create({ message: 'task loading..',spinner:'crescent' })
     loading.present().then(()=>{
       this.task.loadTask().then((data)=>{
         this.taskData = data;

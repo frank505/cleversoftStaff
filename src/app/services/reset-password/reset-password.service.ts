@@ -22,7 +22,7 @@ export class ResetPasswordService {
 
   changePassword(data):any
   {
-  return this.http.postData(data,"/staffs/change-password",this.token).toPromise();
+  return this.http.postData(data,"/staffs/change-password/"+this.token,this.token).toPromise();
   }
 
 

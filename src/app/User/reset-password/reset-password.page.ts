@@ -34,7 +34,8 @@ export class ResetPasswordPage implements OnInit {
     private notifications:NotificationsService,
     public modalController: ModalController
   ) { 
-   this.form.token = this.authService.getToken();
+   this.form.token = this.resetPassword.token;
+   console.log(this.form.token)
    this.getNotification();
   }
 
@@ -43,12 +44,14 @@ export class ResetPasswordPage implements OnInit {
 
   async ChangePassword()
   {
+    this.form.token = this.resetPassword.token;
+    console.log(this.form.token)
     if(this.form.password != this.form.confirm)
     {
       this.alert.presentAlert("required","required","password and confirm do not match")
     }else{
     this.loaded = false;
-    const loading = await this.loadingController.create({ message: 'please wait..',spinner:'bubbles'});
+    const loading = await this.loadingController.create({ message: 'please wait..',spinner:'crescent'});
     loading.present().then(()=>{
       this.resetPassword.changePassword(this.form).then((data)=>{
         console.log(data)
@@ -62,7 +65,7 @@ export class ResetPasswordPage implements OnInit {
         loading.dismiss();
         this.loaded = true;
         this.error = error;
-        this.alert.presentAlert("error","error",this.error.error.message);
+        this.alert.presentAlert("error","error",JSON.stringify(this.error.error.message));
       }
       )
     })

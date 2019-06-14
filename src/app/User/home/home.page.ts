@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {NotificationsService} from 'src/app/services/notifications/notifications.service';
 import { NotificationsPage } from 'src/app/User/notifications/notifications.page';
 import {ModalController, LoadingController} from '@ionic/angular';
-
+import  { AlertService } from 'src/app/services/alert/alert.service';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +15,8 @@ export class HomePage implements OnInit {
   notifications_loaded: boolean = false;
   constructor(private notifications: NotificationsService,
     private modalController: ModalController,
-    public loadingController: LoadingController
+    public loadingController: LoadingController,
+    private alert:AlertService
     ) {}
 
   
@@ -26,15 +27,27 @@ export class HomePage implements OnInit {
 
  async getNotification()
   {
-    this.notifications_loaded = false;
+    try{
+      
+      this.notifications_loaded = false;
     const loading = await this.loadingController.create({spinner: 'bubbles' })
     loading.present().then(() => {
     this.notifications.getUserNotificationsAvailable().then((data) =>{
+      console.log(data)
       this.notifications_loaded = true;
       this.notification = data;
       loading.dismiss();
+    },error=>{
+      console.log(error)
+      loading.dismiss();
+      this.alert.presentAlert("error","error","please turn on your internet connection")
     })
     });
+
+    }catch(ex){
+      console.log(ex);
+    } 
+
   }
 
 

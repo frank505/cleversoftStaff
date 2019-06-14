@@ -20,8 +20,10 @@ export class AppComponent {
     private authService:AuthenticationService,
     private slider:SliderServiceService
   ) {
-    this.initializeApp();
+   this.initializeApp();
   }
+
+  
 
   initializeApp() {
     this.platform.ready().then(() => {
@@ -29,14 +31,6 @@ export class AppComponent {
       // this.statusBar.backgroundColorByName("green");
       // this.statusBar.overlaysWebView(false);
       this.splashScreen.hide();
-      this.slider.CheckTokenSlides();
-      this.slider.setState.subscribe(states=>{
-       if(states){
-         this.router.navigate(["/user-login"]);
-        }else{
-          this.router.navigate(["home"]);
-      }
-      })
 
       this.authService.checkToken();
       this.authService.authenticationState.subscribe(state=>{
@@ -47,6 +41,17 @@ export class AppComponent {
         }
         
       })
+
+      this.slider.CheckTokenSlides();
+      this.slider.setState.subscribe(states=>{
+       if(states){
+         this.router.navigate(["/user-login"]);
+        }else{
+          this.router.navigate(["home"]);
+      }
+      })
+
+      
 
 
  

@@ -6,6 +6,9 @@ import { AlertService } from 'src/app/services/alert/alert.service';
 import {LoadingController,ModalController} from '@ionic/angular';
 import {NotificationsService} from 'src/app/services/notifications/notifications.service';
 import {NotificationsPage} from 'src/app/User/notifications/notifications.page';
+import { FileTransfer,FileTransferObject } from '@ionic-native/file-transfer/ngx';
+import { File } from '@ionic-native/File/ngx'; 
+import { ToastService } from 'src/app/services/toast/toast.service';
 
 @Component({
   selector: 'app-full-task-details',
@@ -26,7 +29,10 @@ export class FullTaskDetailsPage implements OnInit {
     private loadingController:LoadingController,
     private alert:AlertService,
     private notifications:NotificationsService,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private transfer: FileTransfer,
+    private file: File,
+    private toast:ToastService
     ) {
       this.getNotification();
       this.getParams();
@@ -82,7 +88,28 @@ getParams()
     })
   }
 
+  async DownloadAvailableFile(file,path)
+  {
+    const loading = await this.loadingController.create({ message: 'please be patient as file is being downloaded..',spinner:'crescent'});
+    loading.present().then(()=>{
 
+    console.log(file)
+    const url = path + file;
+    console.log(url)
+    const fileTransfer: FileTransferObject = this.transfer.create();
+    fileTransfer.download(url, this.file.externalDataDirectory + file).then((entry) => {
+      console.log('download complete: ' + entry.toURL());
+      loading.dismiss();
+      this.toast.presentFadeToast("download complete"+entry.toURL(),3000);
+    }, (error) => {
+      console.log(error);
+      loading.dismiss();
+      this.alert.presentAlert("error","error while downloading","an error occured while downloading this file ensure proper network connections")
+      // handle error
+    });
+
+  });
+  }
   async SendToNotificationsModal()
   {
     const modal = await this.modalController.create({

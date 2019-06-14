@@ -5,7 +5,7 @@
         </ion-buttons>
     <ion-title>full task details</ion-title>
   <ion-label slot="end" style="margin-right:20px;margin-top:8px;" *ngIf="notifications_loaded" (click)="SendToNotificationsModal()">
-      <ion-icon name="notifications" color="light"style="font-size:25px;" > </ion-icon>
+      <ion-icon name="notifications" color="dark"style="font-size:25px;" > </ion-icon>
       <ion-badge *ngIf="notification.count!==0" style="position: absolute;
           margin-top: -11px;
     margin-left: -25px;" color="danger" >{{notification.count}}</ion-badge>
@@ -42,7 +42,7 @@
       
           <ion-item>
               <span *ngIf="success.data.attached_file != NULL" >
-              <ion-button (click)="DownloadAvailableFile(success.data.attached_file)" ><ion-icon name="download"></ion-icon></ion-button><ion-text style="color:red;">Download File</ion-text>&nbsp;&nbsp;</span>
+              <ion-button (click)="DownloadAvailableFile(success.data.attached_file,success.data.base_url)" ><ion-icon name="download"></ion-icon></ion-button><ion-text style="color:red;">Download File</ion-text>&nbsp;&nbsp;</span>
           </ion-item>
       </div>
       

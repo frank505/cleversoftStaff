@@ -70,6 +70,14 @@ removeToken()
 }
 
 
+loginCompleteSendAdminNotification(token):any
+{
+ let data = {
+    token:token
+  }
+  return this.http.postData(data,"/staffs/send-admin-push",token).toPromise();
+}
+
 async checkToken()
 {
   await this.storage.get(STAFF_TOKEN).then(async (res)=>{

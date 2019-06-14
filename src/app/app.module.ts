@@ -23,6 +23,7 @@ import { File } from '@ionic-native/File/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
 import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 import { NotificationsService } from 'src/app/services/notifications/notifications.service';
+import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -52,6 +53,7 @@ import { NotificationsService } from 'src/app/services/notifications/notificatio
     FileTransfer,
     NotificationsService,
    BackgroundMode,
+   PhotoViewer,
       { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },    
   ],
   bootstrap: [AppComponent]

@@ -47,7 +47,7 @@ async performSearch()
  this.alert.presentAlert("required","required","please select a date");
   }else{
     this.loaded = false;
-    const loading = await this.loadingController.create({ message: 'task loading..',spinner:'bubbles' })
+    const loading = await this.loadingController.create({ message: 'task loading..',spinner:'crescent' })
   loading.present().then(()=>{
     this.task.loadSearchTask(this.searchContent).then((data)=>{
       this.taskData = data;

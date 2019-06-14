@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGaurdService } from './services/auth-gaurd/auth-gaurd.service';
+import { AuthGaurdService as Gaurd} from './services/auth-gaurd/auth-gaurd.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'users/dashboard/home', pathMatch: 'full' },
@@ -9,7 +9,7 @@ const routes: Routes = [
   {
     path:'users',
     loadChildren:'./User/user-routing.module#UserRoutingModule',
-    canActivate:[AuthGaurdService]
+    canActivate:[Gaurd]
   },
   { path: 'forgot-password', loadChildren: './forgot-password/forgot-password.module#ForgotPasswordPageModule' },
   

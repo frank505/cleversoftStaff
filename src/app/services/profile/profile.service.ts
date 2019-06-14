@@ -50,7 +50,14 @@ export class ProfileService {
   return this.http.postData(form_data,"/staffs/profilephoto/add/"+this.token,this.token).toPromise();
   }
 
-
+  
+  removePhoto():any
+  {
+    let data = {
+      token:this.token
+    }
+    return this.http.postData(data,"/staffs/remove-photo",this.token).toPromise();
+  }
 
 
 }

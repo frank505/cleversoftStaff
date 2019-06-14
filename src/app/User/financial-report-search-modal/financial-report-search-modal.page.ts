@@ -55,7 +55,7 @@ public response = {
 
 async getAvailableUserYear()
 {
-  const loading = await this.loadingController.create({ message: 'financial details loading..',spinner:'bubbles' })
+  const loading = await this.loadingController.create({ message: 'financial details loading..',spinner:'crescent' })
   loading.present().then(()=>{
   this.financialReport.getYearAvailableForUser().then((data)=>{
     this.UserAvailableYear  = data;
@@ -83,7 +83,7 @@ async SearchForFinancialReport()
    this.alert.presentAlert("required","required field","please select a year if no year exists then user has never been punished for any crime before")
  }
   this.response.isLoaded = false;
-  const loading = await this.loadingController.create({ message: 'financial details loading..',spinner:'bubbles' })
+  const loading = await this.loadingController.create({ message: 'financial details loading..',spinner:'crescent' })
   loading.present().then(()=>{
   this.financialReport.getMonthlyReview(this.ModalSearchData.month,this.ModalSearchData.year).then((data)=>{
     console.log(data)

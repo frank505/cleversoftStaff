@@ -32,7 +32,7 @@ export class ForgotPasswordPage implements OnInit {
 
   async RequestReset()
   {
-    const loading = await this.loadingController.create({ message: 'loading..',spinner:'bubbles' })
+    const loading = await this.loadingController.create({ message: 'loading..',spinner:'crescent' })
     loading.present().then( () => {
           this.authService.ForgotPassword(this.form).subscribe(
         data => {

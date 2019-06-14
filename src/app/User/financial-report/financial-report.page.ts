@@ -49,7 +49,7 @@ notification:any;
   async getMonthlyReport()
   {
     this.loaded = false;
-    const loading = await this.loadingController.create({ message: 'financial loading..',spinner:'bubbles' })
+    const loading = await this.loadingController.create({ message: 'financial loading..',spinner:'crescent' })
     loading.present().then(()=>{
      this.financialReport.getMonthlyReport().then((data)=>{
        //console.log(data)
@@ -62,6 +62,7 @@ notification:any;
      error=>{
     this.error = error;
     console.log(this.error)
+    this.alert.presentAlert("error","error","there seems to be a problem please try again later")
     this.loaded = true;
     loading.dismiss();
      }
