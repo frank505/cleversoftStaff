@@ -5,7 +5,7 @@ import { LoadingController,Platform, AlertController } from '@ionic/angular';
 import { ToastService } from "../services/toast/toast.service";
 import {AlertService} from '../services/alert/alert.service';
 import { Camera , CameraOptions,PictureSourceType} from '@ionic-native/camera/ngx';
-import {BackgroundMode} from '@ionic-native/background-mode/ngx';
+//import {BackgroundMode} from '@ionic-native/background-mode/ngx';
 import {SliderServiceService} from 'src/app/services/slider-service/slider-service.service';
 
  declare var faceapi;
@@ -16,6 +16,7 @@ const MODEL_URL = "http://www.techbuildz.com/models";
   templateUrl: './user-login.page.html',
   styleUrls: ['./user-login.page.scss'],
 })
+
 
 export class UserLoginPage implements OnInit {
   @ViewChild('loginImages') loginImages : ElementRef;
@@ -29,7 +30,7 @@ export class UserLoginPage implements OnInit {
   data_response:any;
   error:any;
   loginImage:any;
-  private stateChecker:boolean = false;
+  public stateChecker:boolean = false;
   constructor(
     private router:Router,
     private authService:AuthenticationService,
@@ -39,35 +40,38 @@ export class UserLoginPage implements OnInit {
     private platform:Platform,
     private camera: Camera,
    public alertController: AlertController,
-  public backgroundMode:BackgroundMode,
+  //public backgroundMode:BackgroundMode,
   private slider:SliderServiceService
     ) 
     {           
-      console.log(faceapi.nets);
-      
-     }
+  //    console.log(faceapi.nets);
+     
+           }
 
-
-   
 
   ngOnInit() {
     //this.firstRedirect();
-    this.redirect();
+    this.redirect(); 
+
   }
   
 firstRedirect()
 {
+
   this.slider.CheckTokenSlides();
       this.slider.setState.subscribe(states=>{
        if(states){
-        this.stateChecker = false;
+        this.stateChecker = true;
          this.router.navigate(["/user-login"]);
         }else{
-          this.stateChecker = true;
+          this.stateChecker = false;
           this.router.navigate(["home"]);
       }
       })
+  
 }
+
+
 
   redirect()
   {
@@ -75,7 +79,6 @@ firstRedirect()
      if(!state){
        this.stateChecker = true;
       this.router.navigate(["user-login"]);   
- 
      }else{
       this.stateChecker = false;
       this.router.navigate(["/users/dashboard/home"]);
@@ -83,6 +86,7 @@ firstRedirect()
      
    })
   } 
+  
   
 
   
@@ -198,15 +202,15 @@ return options;
   await faceapi.nets.ssdMobilenetv1.loadFromUri('http://www.techbuildz.com/models');
   await faceapi.nets.faceLandmark68Net.loadFromUri("http://www.techbuildz.com/models");
   await faceapi.nets.faceRecognitionNet.loadFromUri("http://www.techbuildz.com/models");
-  await faceapi.nets.mtcnn.loadFromUri("http://www.techbuildz.com/models");
-  await faceapi.nets.tinyFaceDetector.loadFromUri("http://www.techbuildz.com/models");
-  //check if its an image
+  // await faceapi.nets.mtcnn.loadFromUri("http://www.techbuildz.com/models");
+  // await faceapi.nets.tinyFaceDetector.loadFromUri("http://www.techbuildz.com/models");
+  // //check if its an image
      const checkImage = await faceapi
    .detectAllFaces(imageLogin)
    .withFaceLandmarks()
    .withFaceDescriptors();
    console.log(checkImage)
-
+   
  if (!checkImage.length) {
  return this.alert.presentAlert("error","error","your face is not being picked in this image ensure its your face and not some object");
  loading.dismiss();
@@ -239,8 +243,11 @@ return options;
  
  async onSuccessiveLogin(token,authImageUrl)
  {
+     try {
+    
+      
 
-    let options = this.pictureOptions();   
+      let options = this.pictureOptions();   
     this.camera.getPicture(options).then(async (imageData)=>{
    
      const loading = await this.loadingController.create({ message: 'activating facial recognition this might take a while..',spinner:'crescent' })
@@ -248,12 +255,12 @@ return options;
        
        await faceapi.loadSsdMobilenetv1Model(MODEL_URL)
    // accordingly for the other models:
-   await faceapi.loadTinyFaceDetectorModel(MODEL_URL)
-   await faceapi.loadMtcnnModel(MODEL_URL)
+  //  await faceapi.loadTinyFaceDetectorModel(MODEL_URL)
+  //  await faceapi.loadMtcnnModel(MODEL_URL)
    await faceapi.loadFaceLandmarkModel(MODEL_URL)
    await faceapi.loadFaceLandmarkTinyModel(MODEL_URL)
    await faceapi.loadFaceRecognitionModel(MODEL_URL)
-   await faceapi.loadFaceExpressionModel(MODEL_URL)
+//   await faceapi.loadFaceExpressionModel(MODEL_URL)
  
    var finalData = 'data:image/jpeg;base64,' + imageData;
    var imageFaceAuth = this.loginImages.nativeElement.querySelector("#image_from_server");
@@ -295,8 +302,14 @@ return options;
       const bestMatch = faceMatcher.findBestMatch(singleResult.descriptor)
       console.log(bestMatch)
       if(bestMatch.hasOwnProperty("_label")  && bestMatch._label!="unknown"){
-        loading.dismiss();
-        this.loginCompleteSendAdminNotificationAndSetToken(loading,token);
+        if(bestMatch.distance >= 0.4){
+          loading.dismiss();
+          this.alert.presentAlert("error","error","this face doesnt match");  
+        }else{
+          loading.dismiss();
+          this.loginCompleteSendAdminNotificationAndSetToken(loading,token);
+        }
+       
       }else{
         loading.dismiss();
         this.alert.presentAlert("error","error","this face doesnt match");
@@ -311,6 +324,13 @@ return options;
 
       });     
 
+
+
+     } catch (error) {
+        console.log(error)
+        this.alert.presentAlert("error","error","there seems to be a problem please try again later");
+     }
+    
       
 
  
@@ -323,6 +343,7 @@ loginCompleteSendAdminNotificationAndSetToken(loading,token)
   this.authService.loginCompleteSendAdminNotification(token).then((data)=>{
  console.log(data)
  this.authService.setToken(token);
+ console.log("token is set successfully")
   },error=>{
     console.log(error)
  loading.dismiss();

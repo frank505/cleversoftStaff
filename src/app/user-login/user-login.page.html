@@ -1,7 +1,6 @@
-<ion-content class="bg-style"  padding  *ngIf="stateChecker">
+<ion-content class="bg-style"   padding *ngIf="stateChecker" >
   <ion-img src="../../../assets/images/logo_css.png" style="margin-bottom:40px;"></ion-img>
-
-  <ion-row>
+  <ion-row *ngIf="stateChecker">
     <ion-col size="12">
       <div class="imgcontainer">
         <img src="../../../assets/images/face_recog_102.JPG" alt="Avatar" class="avatar"><br>
@@ -9,7 +8,9 @@
     </ion-col>
       </ion-row>
 
+
   <form #loginForm=ngForm   (ngSubmit)="Login()">
+    
       <ion-item>
           <ion-label position="floating">Email</ion-label>
           <ion-input type="email" name="email" [(ngModel)]="form.email" required></ion-input>
@@ -25,6 +26,8 @@
          <ion-col size="12" style="justify-content: center;text-align:center;margin-top:4px;">
           <ion-text style="" color="medium" routerLink="/forgot-password" >forgot password? <b color="primary">click here</b></ion-text>
          </ion-col>
+
+         
          <div #loginImages style="display:none">
      <img  id="login_image"  alt="" srcset=""> 
      <img   alt="" id="image_from_server" src="" srcset="">

@@ -8,11 +8,11 @@
           </ion-buttons>
       <ion-title color="primary"></ion-title>
 
-      <ion-label slot="end" style="margin-right:30px;margin-top:3px;" (click)="SendToNotificationsModal()" *ngIf="notifications_loaded" >
+      <ion-label slot="end" style="margin-right:35px;margin-top:3px;" (click)="SendToNotificationsModal()" *ngIf="notifications_loaded" >
         <ion-icon name="notifications" class="notifications" style="font-size:25px;color:white !important;" > </ion-icon>
         <ion-badge *ngIf="notification.count!==0" style="position: absolute;
            margin-top: -6px;
-      margin-left: -35px;" color="danger" >{{notification.count}}</ion-badge>
+      margin-left: -40px;" color="danger" >{{notification.count}}</ion-badge>
        </ion-label>
       
     </ion-toolbar>
@@ -30,22 +30,22 @@
 
 <ion-grid style="margin-top:240px;">
 
-        <ion-row>
-          <ion-col col-5>
+        <ion-row class="row-cards">
+          <ion-col col-4>
               <ion-card >
-                  <ion-card-content text-center routerLink="/users/dashboard/profile" > 
+                  <ion-card-content text-center (click)="LoadPage('/users/dashboard/profile')" > 
                     <ion-icon name="people" color="dark" class="ion-resize"></ion-icon><br>
                          <b class="ion-item-link" style="color:dark !important;">Profile</b> 
                   </ion-card-content>
                 </ion-card>
   
           </ion-col>
-          <ion-col col-5>
+          <ion-col col-4>
 
-              <ion-card routerLink="/admin/dashboard/user-profile/user-profile/add-user">
-                  <ion-card-content text-center routerLink="/users/dashboard/reset-password">  
+              <ion-card      >
+                  <ion-card-content text-center (click)="LoadPage('/users/dashboard/reset-password')">  
                       <ion-icon name="create" color="dark" class="ion-resize"></ion-icon><br>
-                           <b class="ion-item-link">reset password</b> 
+                           <b class="ion-item-link">password</b> 
                     </ion-card-content>
                   
                 </ion-card>
@@ -54,23 +54,23 @@
 
           </ion-col>
         </ion-row>
-        <ion-row>
-          <ion-col col-5>
+        <ion-row class="row-cards">
+          <ion-col col-4>
               <ion-card>
   
-                  <ion-card-content text-center routerLink="/users/dashboard/tasks"> 
+                  <ion-card-content text-center  (click)="LoadPage('/users/dashboard/tasks')" > 
                       <ion-icon name="add-circle" color="dark" class="ion-resize"></ion-icon><br>
                            <b class="ion-item-link">Tasks</b> 
                     </ion-card-content>
                   
                 </ion-card>                      
           </ion-col>
-          <ion-col col-5>
+          <ion-col col-4>
               <ion-card>
     
-                  <ion-card-content text-center routerLink="/users/dashboard/financial-report"> 
+                  <ion-card-content text-center (click)="LoadPage('/users/dashboard/financial-report')" > 
                       <ion-icon name="cash" color="dark" class="ion-resize"></ion-icon><br>
-                           <b class="ion-item-link">financial report</b> 
+                           <b class="ion-item-link">finances</b> 
                     </ion-card-content>
                   
                 
@@ -80,20 +80,21 @@
         </ion-row>
  
 
-        <ion-row>
-            <ion-col col-5>
+        
+        <ion-row class="row-cards">
+            <ion-col col-4>
                 <ion-card>
-                    <ion-card-content text-center > 
+                    <ion-card-content text-center (click)="LoadPage('/users/settings')"> 
                       <ion-icon name="cog" color="dark" class="ion-resize"></ion-icon><br>
                            <b class="ion-item-link" style="color:dark !important;">Settings</b> 
                     </ion-card-content>
                   </ion-card>
     
             </ion-col>
-            <ion-col col-5>
+            <ion-col col-4>
   
-                <ion-card (click)="GoToServicePage()">
-                    <ion-card-content text-center> 
+                <ion-card >
+                    <ion-card-content text-center  (click)="LoadPage('/users/about')"  > 
                         <ion-icon name="information-circle" color="dark" class="ion-resize"></ion-icon><br>
                              <b class="ion-item-link">About</b> 
                       </ion-card-content>

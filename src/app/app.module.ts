@@ -24,6 +24,10 @@ import { FilePath } from '@ionic-native/file-path/ngx';
 import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 import { NotificationsService } from 'src/app/services/notifications/notifications.service';
 import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { NativePageTransitions } from '@ionic-native/native-page-transitions/ngx';
+import { Diagnostic } from '@ionic-native/diagnostic/ngx';
+import { Network } from '@ionic-native/network/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -32,12 +36,13 @@ import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
     BrowserModule,
    IonicModule.forRoot(), 
    AppRoutingModule,
+   IonicStorageModule.forRoot(),
   FormsModule,
   HttpClientModule,
   TaskSearchModalPageModule,
   FinancialReportSearchModalPageModule,
   NotificationsPageModule,
-  IonicStorageModule.forRoot()],
+  ],
   providers: [
     StatusBar,
     SplashScreen,
@@ -49,11 +54,15 @@ import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
     AuthenticationService,
     Camera,
     File,
+    Network,
+    Diagnostic,
     FilePath,
     FileTransfer,
     NotificationsService,
    BackgroundMode,
    PhotoViewer,
+   InAppBrowser,
+    NativePageTransitions,
       { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },    
   ],
   bootstrap: [AppComponent]

@@ -35,7 +35,18 @@ export class MenuPage implements OnInit {
        title:'reset password',
        url:'/users/dashboard/reset-password',
        icon:'create'
+     },
+     {
+       title:'About',
+       url:'/users/about',
+       icon:'information-circle'
+     },
+     {
+       title:'Settings',
+       url:'/users/settings',
+       icon:'cog'
      }
+
 
   ];
  

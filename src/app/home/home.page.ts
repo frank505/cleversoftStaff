@@ -24,7 +24,7 @@ export class HomePage {
       {title: "Build your dream", author: "With a wide variety off services that we offer on cleversoft we help people build thier dream and bussiness by giving them platforms on different avaialable platforms today.", body: "With a wide variety off services that we offer on cleversoft we help people build thier dream and bussiness by giving them platforms on different avaialable platforms today.", picture: "../../assets/images/paypal (2).jpg"},
       {title: "Path to Your Success", author: "Its Our joy to always be a part to your success and has always been for us this past years thanks for giving us the opurtunity", body: "", picture: "../../assets/images/paypal (3).jpg"},
     ]
-   this.state = this.slider.state;
+  // this.state = this.slider.state;
   }
 
   
@@ -34,7 +34,7 @@ export class HomePage {
 ngOnInit(): void {
   //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
   //Add 'implements OnInit' to the class.
-  this.redirect();
+ // this.redirect();
  
 }
 

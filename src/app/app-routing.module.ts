@@ -1,16 +1,19 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGaurdService as Gaurd} from './services/auth-gaurd/auth-gaurd.service';
+import { AuthGaurdService} from './services/auth-gaurd/auth-gaurd.service';
+import {SliderGaurdService } from './services/slider-gaurd/slider-gaurd.service';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'users/dashboard/home', pathMatch: 'full' },
-  { path: 'home', loadChildren: './home/home.module#HomePageModule' },
-  { path: 'user-login', loadChildren: './user-login/user-login.module#UserLoginPageModule' },
+  { path: '', redirectTo: '/users/dashboard/home', pathMatch: 'full' },
   {
     path:'users',
     loadChildren:'./User/user-routing.module#UserRoutingModule',
-    canActivate:[Gaurd]
+    canActivate:[AuthGaurdService]
   },
+  { path: 'user-login', 
+  loadChildren: './user-login/user-login.module#UserLoginPageModule',
+ // canActivate:[SliderGaurdService]
+ },
   { path: 'forgot-password', loadChildren: './forgot-password/forgot-password.module#ForgotPasswordPageModule' },
   
 ];

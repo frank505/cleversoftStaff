@@ -1,13 +1,14 @@
 
 
-<ion-content *ngIf="stateChecker">
+<ion-content >
       <div *ngIf="nextToggler">
           <div   (click)="nextPage()" style="position:absolute;z-index:500;color:white;top:5px;right:10px;font-weight:bolder;">
               <span>Skip</span>&nbsp;<ion-icon   name="arrow-forward" ></ion-icon>
            </div>
       </div>
       
-       
+ 
+      
       
   <ion-slides class="slide-padding" pager="true" (ionSlideReachEnd)="ionSlideReachEnd()" >
       <ion-slide *ngFor="let story of topStories">
@@ -22,9 +23,13 @@
 
               <ion-img src="{{story.picture}}"></ion-img>
               <h2 class="slidetitle">
-                  <span class="block">{{story.title}}</span>
+                  <span class="block">
+                      {{story.title}}
+                    </span>
               </h2>
-              <p class="author"> {{story.author}}</p>
+              <p class="author">
+                  {{story.author}}
+                </p>
           </div>
       </ion-slide>
   </ion-slides>

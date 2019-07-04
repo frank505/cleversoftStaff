@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {NotificationsService} from 'src/app/services/notifications/notifications.service';
 import { NotificationsPage } from 'src/app/User/notifications/notifications.page';
-import {ModalController, LoadingController} from '@ionic/angular';
+import {ModalController, LoadingController, NavController} from '@ionic/angular';
 import  { AlertService } from 'src/app/services/alert/alert.service';
+import { NativePageTransitions,NativeTransitionOptions } from '@ionic-native/native-page-transitions/ngx';
+import { Router} from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -16,18 +18,22 @@ export class HomePage implements OnInit {
   constructor(private notifications: NotificationsService,
     private modalController: ModalController,
     public loadingController: LoadingController,
-    private alert:AlertService
+    private nativePageTransitions:NativePageTransitions,
+    private alert:AlertService,
+    private router:Router,
+    private navCtrl:NavController
     ) {}
 
   
   ngOnInit() {
-    this.getNotification();
+  //  this.getNotification();
   }
 
 
  async getNotification()
   {
     try{
+      
       
       this.notifications_loaded = false;
     const loading = await this.loadingController.create({spinner: 'bubbles' })
@@ -67,5 +73,24 @@ modal.onDidDismiss().then((dataReturned) => {
 
 return await modal.present();
   }
+
+
+
+
+  LoadPage(url)
+{
+
+  let options:NativeTransitionOptions = {
+    direction: 'left',
+    duration: 400,
+    slowdownfactor: -1,
+    iosdelay: 50
+  }
+
+  this.nativePageTransitions.fade(null);
+ // this.nativePageTransitions.slide();
+  this.navCtrl.navigateRoot(url);
+// this.navCtrl.navigateForward(url);
+}
 
 }
