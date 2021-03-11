@@ -447,20 +447,20 @@
     tslib "^1.9.0"
     typescript "^3.2.4"
 
-"@ionic/angular@^4.1.0":
-  version "4.6.0"
-  resolved "https://registry.yarnpkg.com/@ionic/angular/-/angular-4.6.0.tgz#7890143f43958b6c0a42b285ea571ffa9672293b"
-  integrity sha512-T7At4TBHqkNP9zt6nHqgIztOIDB3X/3YojNm5aya/2tlT9mJ+R0DcGBaKD+KOvKmauzIiABs0A3sxFAPZURVCQ==
+"@ionic/angular@^4.5.0":
+  version "4.11.13"
+  resolved "https://registry.yarnpkg.com/@ionic/angular/-/angular-4.11.13.tgz#d4f00d7d64bcbc860b7ae0961c3e665f74f395fb"
+  integrity sha512-ly/lA8INx0Ai1T5vJsYqzU02jHntow3KY5jF3QqyInq2tPYCXEggo8QvKl9AJzwEvmIJyLyBUf5OEUup1MSODw==
   dependencies:
-    "@ionic/core" "4.6.0"
+    "@ionic/core" "4.11.13"
     tslib "^1.9.3"
 
-"@ionic/core@4.6.0":
-  version "4.6.0"
-  resolved "https://registry.yarnpkg.com/@ionic/core/-/core-4.6.0.tgz#70b3af9475f15ce2cc5c71cd55d51df28206af2c"
-  integrity sha512-yE7zVnj8jQYQfFw+oliXgbpxDGYDS8SKDRLo3I0IQWGIn50nFntQVfH+FfaJ6bWexInq+86+dQLDIjCUQUX0PQ==
+"@ionic/core@4.11.13":
+  version "4.11.13"
+  resolved "https://registry.yarnpkg.com/@ionic/core/-/core-4.11.13.tgz#10c7b0d19889671c1de9233f76f9f4167df2a8b5"
+  integrity sha512-EGin45jCjds4P1AvriujxzpIXKQzQrPQyQAgEEwUybhMNcU/9xC1sf2inG1IwMVdsc6XRBYjWvtqMPWxTWmeCw==
   dependencies:
-    ionicons "4.5.10-2"
+    ionicons "^4.6.3"
     tslib "^1.10.0"
 
 "@ionic/storage@^2.2.0":
@@ -1311,10 +1311,10 @@ bluebird@^3.3.0, bluebird@^3.5.1, bluebird@^3.5.3, bluebird@^3.5.5:
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.5.tgz#a8d0afd73251effbbd5fe384a77d73003c17a71f"
   integrity sha512-5am6HnnfN+urzt4yfg7IgTbotDjIT/u8AJpEt0sIU9FtXfVeezXAPKswrG+xKUCOYAINpSdgZVDU6QFh+cuH3w==
 
-bn.js@^4.0.0, bn.js@^4.1.0, bn.js@^4.1.1, bn.js@^4.4.0:
-  version "4.11.8"
-  resolved "https://registry.yarnpkg.com/bn.js/-/bn.js-4.11.8.tgz#2cde09eb5ee341f484746bb0309b3253b1b1442f"
-  integrity sha512-ItfYfPLkWHUjckQCk8xC+LwxgK8NYcXywGigJgSwOP8Y2iyWT4f2vsZnoOXTTbo+o5yXmIUJ4gn5538SO5S3gA==
+bn.js@^4.0.0, bn.js@^4.1.0, bn.js@^4.1.1, bn.js@^4.11.9:
+  version "4.12.0"
+  resolved "https://registry.yarnpkg.com/bn.js/-/bn.js-4.12.0.tgz#775b3f278efbb9718eec7361f483fb36fbbfea88"
+  integrity sha512-c98Bf3tPniI+scsdk237ku1Dc3ujXQTSgyiPUDEOe7tRkhrqridvh8klBv0HCEso1OLOYcHuCv/cS6DNxKH+ZA==
 
 body-parser@1.19.0, body-parser@^1.16.1:
   version "1.19.0"
@@ -1382,7 +1382,7 @@ braces@^2.3.0, braces@^2.3.1, braces@^2.3.2:
     split-string "^3.0.2"
     to-regex "^3.0.1"
 
-brorand@^1.0.1:
+brorand@^1.0.1, brorand@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/brorand/-/brorand-1.1.0.tgz#12c25efe40a45e3c323eb8675a0a0ce57b22371f"
   integrity sha1-EsJe/kCkXjwyPrhnWgoM5XsiNx8=
@@ -2633,17 +2633,17 @@ elementtree@^0.1.6:
     sax "1.1.4"
 
 elliptic@^6.0.0:
-  version "6.5.0"
-  resolved "https://registry.yarnpkg.com/elliptic/-/elliptic-6.5.0.tgz#2b8ed4c891b7de3200e14412a5b8248c7af505ca"
-  integrity sha512-eFOJTMyCYb7xtE/caJ6JJu+bhi67WCYNbkGSknu20pmM8Ke/bqOfdnZWxyoGN26JgfxTbXrsCkEw4KheCT/KGg==
+  version "6.5.4"
+  resolved "https://registry.yarnpkg.com/elliptic/-/elliptic-6.5.4.tgz#da37cebd31e79a1367e941b592ed1fbebd58abbb"
+  integrity sha512-iLhC6ULemrljPZb+QutR5TQGB+pdW6KGD5RSegS+8sorOZT+rdQFbsQFJgvN3eRqNALqJer4oQ16YvJHlU8hzQ==
   dependencies:
-    bn.js "^4.4.0"
-    brorand "^1.0.1"
+    bn.js "^4.11.9"
+    brorand "^1.1.0"
     hash.js "^1.0.0"
-    hmac-drbg "^1.0.0"
-    inherits "^2.0.1"
-    minimalistic-assert "^1.0.0"
-    minimalistic-crypto-utils "^1.0.0"
+    hmac-drbg "^1.0.1"
+    inherits "^2.0.4"
+    minimalistic-assert "^1.0.1"
+    minimalistic-crypto-utils "^1.0.1"
 
 emojis-list@^2.0.0:
   version "2.1.0"
@@ -3523,7 +3523,7 @@ hash.js@^1.0.0, hash.js@^1.0.3:
     inherits "^2.0.3"
     minimalistic-assert "^1.0.1"
 
-hmac-drbg@^1.0.0:
+hmac-drbg@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/hmac-drbg/-/hmac-drbg-1.0.1.tgz#d2745701025a6c775a6c545793ed502fc0c649a1"
   integrity sha1-0nRXAQJabHdabFRXk+1QL8DGSaE=
@@ -3754,7 +3754,7 @@ inflight@^1.0.4:
     once "^1.3.0"
     wrappy "1"
 
-inherits@2, inherits@2.0.4, inherits@^2.0.1, inherits@^2.0.3, inherits@~2.0.0, inherits@~2.0.1, inherits@~2.0.3:
+inherits@2, inherits@2.0.4, inherits@^2.0.1, inherits@^2.0.3, inherits@^2.0.4, inherits@~2.0.0, inherits@~2.0.1, inherits@~2.0.3:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.4.tgz#0fa2c64f932917c3433a0ded55363aae37416b7c"
   integrity sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==
@@ -3828,10 +3828,10 @@ ionic-cache@^4.0.1:
   resolved "https://registry.yarnpkg.com/ionic-cache/-/ionic-cache-4.0.1.tgz#1c1fc2e9c3d93e5f07d29f2f21cc4cdb90ca8006"
   integrity sha512-X7ekRjgaRyxhrspwJSzua4I8enMv6d8y8QQExqG5X2ZMj/ICh/Z7uQfNP2xEfQ+/QgSLrMuevbHkBOnT9G622g==
 
-ionicons@4.5.10-2:
-  version "4.5.10-2"
-  resolved "https://registry.yarnpkg.com/ionicons/-/ionicons-4.5.10-2.tgz#2aa46914743bf853b67b4a16288837a8b4559d75"
-  integrity sha512-68GMJBezv9ONng8TskjYFrOnCjXzDSdES6q1C9hTJyA9hKViCqaRcDsq3J/w3OukZEq92o2pX2tRwhj+uFgc9g==
+ionicons@^4.6.3:
+  version "4.6.3"
+  resolved "https://registry.yarnpkg.com/ionicons/-/ionicons-4.6.3.tgz#e4f3a3e9b66761eb8c0db27798cc1a8ce97777d2"
+  integrity sha512-cgP+VIr2cTJpMfFyVHTerq6n2jeoiGboVoe3GlaAo5zoSBDAEXORwUZhv6m+lCyxlsHCS3nqPUE+MKyZU71t8Q==
 
 ip-regex@^2.1.0:
   version "2.1.0"
@@ -4810,7 +4810,7 @@ minimalistic-assert@^1.0.0, minimalistic-assert@^1.0.1:
   resolved "https://registry.yarnpkg.com/minimalistic-assert/-/minimalistic-assert-1.0.1.tgz#2e194de044626d4a10e7f7fbc00ce73e83e4d5c7"
   integrity sha512-UtJcAD4yEaGtjPezWuO9wC4nwUnVH/8/Im3yEHQP4b67cXlD/Qr9hdITCU1xDbSEXg2XKNaP8jsReV7vQd00/A==
 
-minimalistic-crypto-utils@^1.0.0, minimalistic-crypto-utils@^1.0.1:
+minimalistic-crypto-utils@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/minimalistic-crypto-utils/-/minimalistic-crypto-utils-1.0.1.tgz#f6c00c1c0b082246e5c4d99dfb8c7c083b2b582a"
   integrity sha1-9sAMHAsIIkblxNmd+4x8CDsrWCo=
