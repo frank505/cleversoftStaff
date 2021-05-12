@@ -41,7 +41,7 @@
     "@ionic/angular": "^4.5.0",
     "@ionic/storage": "^2.2.0",
     "blob-util": "^2.0.2",
-    "chart.js": "^2.8.0",
+    "chart.js": "^2.9.4",
     "com-sarriaroman-photoviewer": "^1.2.2",
     "cordova-android": "7.0.0",
     "cordova-android-support-gradle-release": "^3.0.1",
